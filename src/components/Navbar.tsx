@@ -24,7 +24,8 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { name: "BOOK", href: "/" },
+  { name: "HOME", href: "/" },
+  { name: "BOOK", href: "/book" },
   { name: "ADMIN", href: "/admin", adminOnly: true },
 ];
 
