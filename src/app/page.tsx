@@ -11,7 +11,7 @@ export default function Home() {
           <div className="flex-1 w-full max-w-3xl mx-auto lg:mx-0">
             <ErrorBoundary>
               <BookingForm
-                turfName="Freehit Squad - Turf"
+                turfName={`${process.env.NEXT_PUBLIC_BUSINESS_NAME}`}
                 turfLocation="Multi Sports Turf"
               />
             </ErrorBoundary>

@@ -464,10 +464,10 @@ export default function BookingForm({ turfName, turfLocation }: BookingFormProps
                   </div>
 
                   <a
-                    href="tel:+919344898819"
+                    href={`tel:+91${process.env.NEXT_PUBLIC_PHONE_NUMBER}`}
                     className="group flex items-center justify-between p-3 bg-green-100 hover:bg-green-200 rounded-lg transition-all duration-200"
                   >
-                    <span className="font-semibold text-green-700">+91 93448 98819</span>
+                    <span className="font-semibold text-green-700">+91 {process.env.NEXT_PUBLIC_PHONE_NUMBER}</span>
                     <ArrowRight className="h-5 w-5 text-green-600 transform group-hover:translate-x-1 transition-transform" />
                   </a>
 

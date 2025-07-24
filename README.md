@@ -249,5 +249,4 @@ For support and questions:
 
 ---
 
-**Built with ❤️ using Next.js 15 and modern web technologies**#   t u r f - b o o k i n g - t e m p l a t e  
- 
+**Built with ❤️ using Next.js 15 and modern web technologies**
