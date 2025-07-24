@@ -16,6 +16,7 @@ import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import DateTimePicker from "@/components/DateTimePicker";
 
 interface BookingFormValues {
   customerName: string;
@@ -520,111 +521,22 @@ export default function BookingForm({ turfName, turfLocation }: BookingFormProps
             </div>
           )}
 
-          {/* Date Picker */}
+          {/* Date & Time Picker */}
           <div className="space-y-1 animate-fade-in" style={{ animationDelay: '0.2s', animationFillMode: 'backwards' }}>
-            <Label htmlFor="date" className="font-medium text-base">Date<span className="text-red-500">*</span></Label>
-            <Popover>
-              <PopoverTrigger asChild>
-                <Button
-                  id="date"
-                  aria-label="Date"
-                  aria-required="true"
-                  variant="outline"
-                  className={cn(
-                    "w-full h-14 rounded-xl justify-start text-left font-normal text-base border border-input bg-background hover:bg-accent/40 transition-all",
-                    getFieldValidationClass("date")
-                  )}
-                >
-                  <CalendarIcon className="mr-2 h-5 w-5 text-primary" />
-                  {formValues.date ? (
-                    format(formValues.date, "PPP")
-                  ) : (
-                    <span>Pick a date</span>
-                  )}
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-auto p-0">
-                <Calendar
-                  mode="single"
-                  selected={formValues.date || undefined}
-                  onSelect={(date) => date && setFormValues(prev => ({ ...prev, date }))}
-                  defaultMonth={formValues.date || undefined}
-                  initialFocus
-                  disabled={(date) => {
-                    const today = new Date();
-                    today.setHours(0, 0, 0, 0);
-                    const compareDate = new Date(date);
-                    compareDate.setHours(0, 0, 0, 0);
-                    return compareDate < today;
-                  }}
-                />
-              </PopoverContent>
-            </Popover>
-          </div>
-          {/* Start Time */}
-          <div className="space-y-1 animate-fade-in" style={{ animationDelay: '0.25s', animationFillMode: 'backwards' }}>
-            <Label htmlFor="startTime" className="font-medium text-base">Start Time*</Label>
-            <Popover>
-              <PopoverTrigger asChild>
-                <Button
-                  id="startTime"
-                  variant="outline"
-                  className={cn(
-                    "w-full h-12 rounded-lg justify-start text-left font-normal text-base border border-input bg-background hover:bg-accent/40 transition-all",
-                    getFieldValidationClass("startTime")
-                  )}
-                >
-                  <Clock className="mr-2 h-5 w-5 text-primary" />
-                  {formValues.time && formValues.time !== "" ? (
-                    <span>{formValues.time.replace(/(\d+):(\d+)/, (_, h, m) =>
-                      `${h % 12 || 12}:${m} ${h >= 12 ? 'PM' : 'AM'}`
-                    )}</span>
-                  ) : (
-                    <span>Select time</span>
-                  )}
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-auto p-0" onOpenAutoFocus={(e) => e.preventDefault()}>
-                <div className="p-4 grid grid-cols-2 sm:grid-cols-3 gap-3 max-h-[300px] overflow-y-auto">
-                  {Array.from({ length: 48 }, (_, i) => {
-                    const hour = Math.floor(i / 2);
-                    const minute = i % 2 === 0 ? "00" : "30";
-                    const timeValue = `${hour}:${minute}`;
-                    const displayHour = hour === 0 ? 12 : hour > 12 ? hour - 12 : hour;
-                    const amPm = hour >= 12 ? "PM" : "AM";
-
-                    const isNonOperatingHour = hour >= 2 && hour < 6;
-                    const disabled = isNonOperatingHour || !isTimeSlotAvailable(formValues.date, timeValue, 0.5);
-
-                    const currentTime = formValues.time;
-                    const isSelected = currentTime !== "" && currentTime === timeValue;
-
-                    return (
-                      <Button
-                        key={timeValue}
-                        type="button"
-                        variant="outline"
-                        tabIndex={-1}
-                        className={cn(
-                          "text-center rounded-lg border border-input transition-all font-medium text-base focus:outline-none",
-                          isSelected && "bg-primary text-white hover:bg-primary",
-                          !disabled && !isSelected && "hover:bg-primary/10 hover:text-primary",
-                          disabled && "opacity-50 cursor-not-allowed bg-gray-200 text-gray-400 hover:bg-gray-200 hover:text-gray-400",
-                          isNonOperatingHour && "bg-red-50 hover:bg-red-50 hover:text-gray-400"
-                        )}
-                        onClick={() => {
-                          if (!disabled) setFormValues(prev => ({ ...prev, time: timeValue }));
-                        }}
-                        disabled={disabled}
-                      >
-                        {displayHour}:{minute} {amPm}
-                        {isNonOperatingHour && <span className="ml-1 text-red-500">✕</span>}
-                      </Button>
-                    );
-                  })}
-                </div>
-              </PopoverContent>
-            </Popover>
+            <Label className="font-medium text-base">Date & Time<span className="text-red-500">*</span></Label>
+            <div className={cn(
+              "rounded-xl border border-input bg-background p-4 transition-all",
+              getFieldValidationClass("date") || getFieldValidationClass("startTime")
+            )}>
+              <DateTimePicker
+                date={formValues.date}
+                time={formValues.time}
+                onDateSelect={(date) => setFormValues(prev => ({ ...prev, date }))}
+                onTimeSelect={(time) => setFormValues(prev => ({ ...prev, time: time || "" }))}
+                isTimeSlotAvailable={isTimeSlotAvailable}
+                duration={formValues.duration}
+              />
+            </div>
           </div>
 
           {/* Duration */}
