@@ -1,0 +1,130 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 142 76% 36%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 142 76% 36%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 83.9%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased text-foreground;
+    background: linear-gradient(to bottom, #4ade80, #16a34a);
+    background-attachment: fixed;
+    min-height: 100vh;
+  }
+}
+
+.grass-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg width='200' height='40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,35 C0,35 2,20 5,15 C8,10 10,5 15,0 M20,38 C20,38 22,25 25,18 C28,11 30,5 35,0 M40,36 C40,36 45,25 48,15 C51,5 55,0 58,0 M60,35 C60,35 62,20 65,15 C68,10 70,5 75,0 M80,38 C80,38 82,25 85,18 C88,11 90,5 95,0 M100,36 C100,36 105,25 108,15 C111,5 115,0 118,0 M120,35 C120,35 122,20 125,15 C128,10 130,5 135,0 M140,38 C140,38 142,25 145,18 C148,11 150,5 155,0 M160,36 C160,36 165,25 168,15 C171,5 175,0 178,0 M180,35 C180,35 182,20 185,15 C188,10 190,5 195,0' stroke='%2316a34a' stroke-width='2' fill='none' stroke-opacity='0.6'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-position: bottom;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 180px;
+  z-index: -10;
+  opacity: 0.8;
+  animation: sway 10s ease-in-out infinite alternate;
+}
+
+@keyframes sway {
+  0% {
+    background-position: 0 bottom;
+  }
+  100% {
+    background-position: 50px bottom;
+  }
+}
+
+.card-container {
+  backdrop-filter: blur(8px);
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 1rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.main-content {
+  min-height: calc(100vh - 6rem);
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  opacity: 1;
+  animation: fade-in 0.5s ease-out forwards;
+  animation-fill-mode: both;
+}
+
+/* Ensure form elements are clickable and have proper z-index */
+button, select, input, [role="button"], [role="combobox"] {
+  pointer-events: auto !important;
+  position: relative;
+  z-index: 1;
+}
+
+/* Ensure popover content appears above other elements */
+[data-radix-popper-content-wrapper] {
+  z-index: 50 !important;
+}
+
+/* Ensure select content appears above other elements */
+[data-radix-select-content] {
+  z-index: 50 !important;
+}
+
