@@ -352,7 +352,7 @@ export default function BookingForm({ turfName, turfLocation }: BookingFormProps
   };
 
   const isEvent = (selection: string) => {
-    return ['birthday', 'wedding', 'others-event'].includes(selection);
+    return ['business-meet', 'birthday', 'wedding', 'others-event'].includes(selection);
   };
 
   const selectedIsEvent = isEvent(formValues.sport);
@@ -407,7 +407,7 @@ export default function BookingForm({ turfName, turfLocation }: BookingFormProps
 
           {/* Sports Selection */}
           <div className="space-y-1 animate-fade-in" style={{ animationDelay: '0.1s', animationFillMode: 'backwards' }}>
-            <Label htmlFor="sports" className="font-medium text-base">Sport<span className="text-red-500">*</span></Label>
+            <Label htmlFor="sports" className="font-medium text-base">Activity<span className="text-red-500">*</span></Label>
             <Select
               value={formValues.sport}
               onValueChange={(value) => {
@@ -437,6 +437,7 @@ export default function BookingForm({ turfName, turfLocation }: BookingFormProps
                   <SelectSeparator className="my-2" />
 
                   <div className="font-semibold text-primary px-2 py-1.5 text-sm">Events</div>
+                  <SelectItem value="business-meet">💼 Business Meeting</SelectItem>
                   <SelectItem value="birthday">🎂 Birthday Celebration</SelectItem>
                   <SelectItem value="wedding">💒 Wedding Reception</SelectItem>
                   <SelectItem value="others-event">🎉 Other Events</SelectItem>
@@ -521,169 +522,181 @@ export default function BookingForm({ turfName, turfLocation }: BookingFormProps
           )}
 
           {/* Date Picker */}
-          <div className="space-y-1 animate-fade-in" style={{ animationDelay: '0.2s', animationFillMode: 'backwards' }}>
-            <Label htmlFor="date" className="font-medium text-base">Date<span className="text-red-500">*</span></Label>
-            <Popover>
-              <PopoverTrigger asChild>
-                <Button
-                  id="date"
-                  aria-label="Date"
-                  aria-required="true"
-                  variant="outline"
-                  className={cn(
-                    "w-full h-14 rounded-xl justify-start text-left font-normal text-base border border-input bg-background hover:bg-accent/40 transition-all",
-                    getFieldValidationClass("date")
-                  )}
-                >
-                  <CalendarIcon className="mr-2 h-5 w-5 text-primary" />
-                  {formValues.date ? (
-                    format(formValues.date, "PPP")
-                  ) : (
-                    <span>Pick a date</span>
-                  )}
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-auto p-0">
-                <Calendar
-                  mode="single"
-                  selected={formValues.date || undefined}
-                  onSelect={(date) => date && setFormValues(prev => ({ ...prev, date }))}
-                  defaultMonth={formValues.date || undefined}
-                  initialFocus
-                  disabled={(date) => {
-                    const today = new Date();
-                    today.setHours(0, 0, 0, 0);
-                    const compareDate = new Date(date);
-                    compareDate.setHours(0, 0, 0, 0);
-                    return compareDate < today;
-                  }}
-                />
-              </PopoverContent>
-            </Popover>
-          </div>
+          {!selectedIsEvent && (
+            <div className="space-y-1 animate-fade-in" style={{ animationDelay: '0.2s', animationFillMode: 'backwards' }}>
+              <Label htmlFor="date" className="font-medium text-base">Date<span className="text-red-500">*</span></Label>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button
+                    id="date"
+                    aria-label="Date"
+                    aria-required="true"
+                    variant="outline"
+                    className={cn(
+                      "w-full h-14 rounded-xl justify-start text-left font-normal text-base border border-input bg-background hover:bg-accent/40 transition-all",
+                      getFieldValidationClass("date")
+                    )}
+                  >
+                    <CalendarIcon className="mr-2 h-5 w-5 text-primary" />
+                    {formValues.date ? (
+                      format(formValues.date, "PPP")
+                    ) : (
+                      <span>Pick a date</span>
+                    )}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0">
+                  <Calendar
+                    mode="single"
+                    selected={formValues.date || undefined}
+                    onSelect={(date) => date && setFormValues(prev => ({ ...prev, date }))}
+                    defaultMonth={formValues.date || undefined}
+                    initialFocus
+                    disabled={(date) => {
+                      const today = new Date();
+                      today.setHours(0, 0, 0, 0);
+                      const compareDate = new Date(date);
+                      compareDate.setHours(0, 0, 0, 0);
+                      return compareDate < today;
+                    }}
+                  />
+                </PopoverContent>
+              </Popover>
+            </div>
+          )}
+
           {/* Start Time */}
-          <div className="space-y-1 animate-fade-in" style={{ animationDelay: '0.25s', animationFillMode: 'backwards' }}>
-            <Label htmlFor="startTime" className="font-medium text-base">Start Time*</Label>
-            <Popover>
-              <PopoverTrigger asChild>
-                <Button
-                  id="startTime"
-                  variant="outline"
-                  className={cn(
-                    "w-full h-12 rounded-lg justify-start text-left font-normal text-base border border-input bg-background hover:bg-accent/40 transition-all",
-                    getFieldValidationClass("startTime")
-                  )}
-                >
-                  <Clock className="mr-2 h-5 w-5 text-primary" />
-                  {formValues.time && formValues.time !== "" ? (
-                    <span>{formValues.time.replace(/(\d+):(\d+)/, (_, h, m) =>
-                      `${h % 12 || 12}:${m} ${h >= 12 ? 'PM' : 'AM'}`
-                    )}</span>
-                  ) : (
-                    <span>Select time</span>
-                  )}
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-auto p-0" onOpenAutoFocus={(e) => e.preventDefault()}>
-                <div className="p-4 grid grid-cols-2 sm:grid-cols-3 gap-3 max-h-[300px] overflow-y-auto">
-                  {Array.from({ length: 48 }, (_, i) => {
-                    const hour = Math.floor(i / 2);
-                    const minute = i % 2 === 0 ? "00" : "30";
-                    const timeValue = `${hour}:${minute}`;
-                    const displayHour = hour === 0 ? 12 : hour > 12 ? hour - 12 : hour;
-                    const amPm = hour >= 12 ? "PM" : "AM";
+          {!selectedIsEvent && (
+            <div className="space-y-1 animate-fade-in" style={{ animationDelay: '0.25s', animationFillMode: 'backwards' }}>
+              <Label htmlFor="startTime" className="font-medium text-base">Start Time*</Label>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button
+                    id="startTime"
+                    variant="outline"
+                    className={cn(
+                      "w-full h-12 rounded-lg justify-start text-left font-normal text-base border border-input bg-background hover:bg-accent/40 transition-all",
+                      getFieldValidationClass("startTime")
+                    )}
+                  >
+                    <Clock className="mr-2 h-5 w-5 text-primary" />
+                    {formValues.time && formValues.time !== "" ? (
+                      <span>{formValues.time.replace(/(\d+):(\d+)/, (_, h, m) =>
+                        `${h % 12 || 12}:${m} ${h >= 12 ? 'PM' : 'AM'}`
+                      )}</span>
+                    ) : (
+                      <span>Select time</span>
+                    )}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0" onOpenAutoFocus={(e) => e.preventDefault()}>
+                  <div className="p-4 grid grid-cols-2 sm:grid-cols-3 gap-3 max-h-[300px] overflow-y-auto">
+                    {Array.from({ length: 48 }, (_, i) => {
+                      const hour = Math.floor(i / 2);
+                      const minute = i % 2 === 0 ? "00" : "30";
+                      const timeValue = `${hour}:${minute}`;
+                      const displayHour = hour === 0 ? 12 : hour > 12 ? hour - 12 : hour;
+                      const amPm = hour >= 12 ? "PM" : "AM";
 
-                    const isNonOperatingHour = hour >= 2 && hour < 6;
-                    const disabled = isNonOperatingHour || !isTimeSlotAvailable(formValues.date, timeValue, 0.5);
+                      const isNonOperatingHour = hour >= 2 && hour < 6;
+                      const disabled = isNonOperatingHour || !isTimeSlotAvailable(formValues.date, timeValue, 0.5);
 
-                    const currentTime = formValues.time;
-                    const isSelected = currentTime !== "" && currentTime === timeValue;
+                      const currentTime = formValues.time;
+                      const isSelected = currentTime !== "" && currentTime === timeValue;
 
-                    return (
-                      <Button
-                        key={timeValue}
-                        type="button"
-                        variant="outline"
-                        tabIndex={-1}
-                        className={cn(
-                          "text-center rounded-lg border border-input transition-all font-medium text-base focus:outline-none",
-                          isSelected && "bg-primary text-white hover:bg-primary",
-                          !disabled && !isSelected && "hover:bg-primary/10 hover:text-primary",
-                          disabled && "opacity-50 cursor-not-allowed bg-gray-200 text-gray-400 hover:bg-gray-200 hover:text-gray-400",
-                          isNonOperatingHour && "bg-red-50 hover:bg-red-50 hover:text-gray-400"
-                        )}
-                        onClick={() => {
-                          if (!disabled) setFormValues(prev => ({ ...prev, time: timeValue }));
-                        }}
-                        disabled={disabled}
-                      >
-                        {displayHour}:{minute} {amPm}
-                        {isNonOperatingHour && <span className="ml-1 text-red-500">✕</span>}
-                      </Button>
-                    );
-                  })}
-                </div>
-              </PopoverContent>
-            </Popover>
-          </div>
+                      return (
+                        <Button
+                          key={timeValue}
+                          type="button"
+                          variant="outline"
+                          tabIndex={-1}
+                          className={cn(
+                            "text-center rounded-lg border border-input transition-all font-medium text-base focus:outline-none",
+                            isSelected && "bg-primary text-white hover:bg-primary",
+                            !disabled && !isSelected && "hover:bg-primary/10 hover:text-primary",
+                            disabled && "opacity-50 cursor-not-allowed bg-gray-200 text-gray-400 hover:bg-gray-200 hover:text-gray-400",
+                            isNonOperatingHour && "bg-red-50 hover:bg-red-50 hover:text-gray-400"
+                          )}
+                          onClick={() => {
+                            if (!disabled) setFormValues(prev => ({ ...prev, time: timeValue }));
+                          }}
+                          disabled={disabled}
+                        >
+                          {displayHour}:{minute} {amPm}
+                          {isNonOperatingHour && <span className="ml-1 text-red-500">✕</span>}
+                        </Button>
+                      );
+                    })}
+                  </div>
+                </PopoverContent>
+              </Popover>
+            </div>
+          )}
 
           {/* Duration */}
-          <div className="space-y-1 animate-fade-in" style={{ animationDelay: '0.3s', animationFillMode: 'backwards' }}>
-            <Label htmlFor="duration" className="font-medium text-base">Duration (hours)*</Label>
-            <div className="flex items-center space-x-2">
-              <Button
-                type="button"
-                onClick={decrementDuration}
-                className="h-12 w-12 rounded-l-lg p-0 flex items-center justify-center bg-neutral-200 text-neutral-700 hover:bg-neutral-300 text-lg"
-                disabled={formValues.duration <= 0.5}
-              >
-                <MinusIcon className="w-6 h-6" />
-              </Button>
-              <div className={cn(
-                "flex-1 h-12 rounded-none border-y border-input bg-background px-4 py-2 text-base text-center flex items-center justify-center font-medium",
-                getFieldValidationClass("duration")
-              )}>
-                {formValues.duration} {formValues.duration === 1 ? 'hour' : 'hours'}
+          {!selectedIsEvent && (
+            <div className="space-y-1 animate-fade-in" style={{ animationDelay: '0.3s', animationFillMode: 'backwards' }}>
+              <Label htmlFor="duration" className="font-medium text-base">Duration (hours)*</Label>
+              <div className="flex items-center space-x-2">
+                <Button
+                  type="button"
+                  onClick={decrementDuration}
+                  className="h-12 w-12 rounded-l-lg p-0 flex items-center justify-center bg-neutral-200 text-neutral-700 hover:bg-neutral-300 text-lg"
+                  disabled={formValues.duration <= 0.5}
+                >
+                  <MinusIcon className="w-6 h-6" />
+                </Button>
+                <div className={cn(
+                  "flex-1 h-12 rounded-none border-y border-input bg-background px-4 py-2 text-base text-center flex items-center justify-center font-medium",
+                  getFieldValidationClass("duration")
+                )}>
+                  {formValues.duration} {formValues.duration === 1 ? 'hour' : 'hours'}
+                </div>
+                <Button
+                  type="button"
+                  onClick={incrementDuration}
+                  className="h-12 w-12 rounded-r-lg p-0 flex items-center justify-center bg-primary text-white hover:bg-primary/90 text-lg"
+                  disabled={formValues.duration >= 4}
+                >
+                  <PlusIcon className="w-6 h-6" />
+                </Button>
               </div>
-              <Button
-                type="button"
-                onClick={incrementDuration}
-                className="h-12 w-12 rounded-r-lg p-0 flex items-center justify-center bg-primary text-white hover:bg-primary/90 text-lg"
-                disabled={formValues.duration >= 4}
-              >
-                <PlusIcon className="w-6 h-6" />
-              </Button>
             </div>
-          </div>
+          )}
 
           {/* Turf Availability Message */}
-          <div className="space-y-1 animate-fade-in" style={{ animationDelay: '0.35s', animationFillMode: 'backwards' }}>
-            <div className="flex items-center justify-between">
-              <Label className="font-medium text-base">Turf Availability</Label>
-              {isTimeSlotAvailable(formValues.date, formValues.time, formValues.duration) && availableCourts.length > 0 ? (
-                <span className="text-sm text-green-600 font-semibold flex items-center animate-pulse">
-                  ✓ Turf Available
-                </span>
-              ) : (
-                <span className="text-sm text-red-500 font-semibold flex items-center animate-pulse">
-                  ✗ Turf Not Available
-                </span>
-              )}
+          {!selectedIsEvent && (
+            <div className="space-y-1 animate-fade-in" style={{ animationDelay: '0.35s', animationFillMode: 'backwards' }}>
+              <div className="flex items-center justify-between">
+                <Label className="font-medium text-base">Turf Availability</Label>
+                {isTimeSlotAvailable(formValues.date, formValues.time, formValues.duration) && availableCourts.length > 0 ? (
+                  <span className="text-sm text-green-600 font-semibold flex items-center animate-pulse">
+                    ✓ Turf Available
+                  </span>
+                ) : (
+                  <span className="text-sm text-red-500 font-semibold flex items-center animate-pulse">
+                    ✗ Turf Not Available
+                  </span>
+                )}
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Add to Cart Button */}
-          <div className="sticky bottom-0 z-10 bg-white/80 pt-2 pb-1 animate-fade-in" style={{ animationDelay: '0.4s', animationFillMode: 'backwards' }}>
-            <Button
-              type="submit"
-              aria-label="Add to Cart"
-              className="w-full h-16 text-lg font-bold rounded-xl bg-gradient-to-r from-primary to-primary/80 shadow-xl hover:from-primary/90 hover:to-primary/70 transition-all mt-2 focus-visible:ring-2 focus-visible:ring-primary active:scale-95"
-              disabled={!isTimeSlotAvailable(formValues.date, formValues.time, formValues.duration) || availableCourts.length === 0 || isLoading}
-              variant={isTimeSlotAvailable(formValues.date, formValues.time, formValues.duration) && availableCourts.length > 0 ? "default" : "secondary"}
-            >
-              {isLoading ? "Adding..." : "Add To Cart"}
-            </Button>
-          </div>
+          {!selectedIsEvent && (
+            <div className="sticky bottom-0 z-10 bg-white/80 pt-2 pb-1 animate-fade-in" style={{ animationDelay: '0.4s', animationFillMode: 'backwards' }}>
+              <Button
+                type="submit"
+                aria-label="Add to Cart"
+                className="w-full h-16 text-lg font-bold rounded-xl bg-gradient-to-r from-primary to-primary/80 shadow-xl hover:from-primary/90 hover:to-primary/70 transition-all mt-2 focus-visible:ring-2 focus-visible:ring-primary active:scale-95"
+                disabled={!isTimeSlotAvailable(formValues.date, formValues.time, formValues.duration) || availableCourts.length === 0 || isLoading}
+                variant={isTimeSlotAvailable(formValues.date, formValues.time, formValues.duration) && availableCourts.length > 0 ? "default" : "secondary"}
+              >
+                {isLoading ? "Adding..." : "Add To Cart"}
+              </Button>
+            </div>
+          )}
+
         </form>
       </CardContent>
     </Card>

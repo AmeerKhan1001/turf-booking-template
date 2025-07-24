@@ -22,7 +22,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <div className="grass-pattern"></div>
         <NavbarWrapper />
-        <main className="min-h-screen">
+        <main className="">
           {children}
         </main>
         <Footer />

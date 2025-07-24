@@ -105,7 +105,7 @@ export default function Footer() {
                   </svg>
                   <div>
                     <p className="font-semibold text-white text-sm">WhatsApp</p>
-                    <p className="text-green-300 text-sm">Quick booking</p>
+                    <p className="text-green-300 text-sm">Quick response</p>
                   </div>
                 </a>
 

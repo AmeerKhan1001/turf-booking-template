@@ -4,7 +4,7 @@ import ErrorBoundary from "@/components/ErrorBoundary";
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-br from-neutral-100 to-primary/5">
+    <div className="flex flex-col bg-gradient-to-br from-neutral-100 to-primary/5">
       <main className="flex-grow container mx-auto px-4 py-6 lg:py-10">
         <div className="flex flex-col lg:flex-row lg:gap-8 gap-6 max-w-[1400px] mx-auto">
           {/* Main Booking Section */}
