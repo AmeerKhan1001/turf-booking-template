@@ -5,8 +5,6 @@ import { format, addDays, parse } from "date-fns";
 import { calculateBookingPrice } from "@/lib/timeUtils";
 import { addToCartAction } from "@/lib/actions";
 
-// Import enhanced form foundation (for future migration)
-import { EnhancedBookingForm } from "@/components/forms/EnhancedBookingForm";
 
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
