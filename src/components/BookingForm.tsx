@@ -409,24 +409,10 @@ export default function BookingForm({ turfName, turfLocation }: BookingFormProps
   return (
     <div className="w-full">
       <Card className="bg-gradient-to-br from-slate-900/95 via-blue-900/90 to-purple-900/95 backdrop-blur-xl border-2 border-white/30 shadow-2xl hover:shadow-3xl transition-all duration-300 hover:border-white/40">
-        <CardHeader className="pb-6">
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full flex items-center justify-center">
-              <MapPin className="w-6 h-6 text-white" />
-            </div>
-            <div>
-              <h2 className="text-2xl font-bold text-white">{turfName}</h2>
-              <p className="text-gray-300 flex items-center gap-1">
-                <MapPin className="w-4 h-4" />
-                {turfLocation}
-              </p>
-            </div>
-          </div>
-        </CardHeader>
         <CardContent>
           {/* Main Booking Form */}
           <form
-            className="space-y-8"
+            className="space-y-8 mt-4"
             aria-label="Turf Booking Form"
             onSubmit={e => {
               e.preventDefault();
@@ -505,7 +491,6 @@ export default function BookingForm({ turfName, turfLocation }: BookingFormProps
                       <span className="text-lg">{sportDetails.emoji}</span>
                       <div className="text-left">
                         <div className="font-medium text-white">{sportDetails.name}</div>
-                        <div className="text-xs text-gray-400">{sportDetails.description}</div>
                       </div>
                     </div>
                   </SelectTrigger>
@@ -947,7 +932,6 @@ export default function BookingForm({ turfName, turfLocation }: BookingFormProps
                       </div>
                     ) : (
                       <div className="flex items-center gap-3">
-                        <Sparkles className="w-6 h-6" />
                         {isAvailable ? `Add to Cart • ₹${estimatedPrice}` : "Select Available Time"}
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6"/>

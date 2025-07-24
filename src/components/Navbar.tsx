@@ -1,5 +1,6 @@
 "use client";
 
+import Image from 'next/image';
 import { Button } from "@/components/ui/button";
 import { CircleUserRound, LogOut, Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -77,15 +78,8 @@ export default function Navbar({ user }: NavbarProps) {
         {/* Logo */}
         <div className="flex items-center">
           <Link href="/" className="flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-xl p-2 hover:bg-primary/5 transition-all duration-200" aria-label="Go to home">
-            <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mr-3">
-              <svg
-                className="w-6 h-6 text-primary"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-              >
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"></path>
-              </svg>
+            <div className="w-12 h-12 rounded-lg flex items-center justify-center mr-3">
+              <Image src="/a1sportsarena_logo.jpg" alt="Logo" width={40} height={40} className="w-12 h-12" />
             </div>
             <span className="text-xl md:text-2xl font-bold text-primary tracking-tight">{process.env.NEXT_PUBLIC_BUSINESS_NAME || "Turf"}</span>
           </Link>
