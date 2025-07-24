@@ -5,6 +5,9 @@ import { format, addDays, parse } from "date-fns";
 import { calculateBookingPrice } from "@/lib/timeUtils";
 import { addToCartAction } from "@/lib/actions";
 
+// Import enhanced form foundation (for future migration)
+import { EnhancedBookingForm } from "@/components/forms/EnhancedBookingForm";
+
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -409,7 +412,7 @@ export default function BookingForm({ turfName, turfLocation }: BookingFormProps
     <div className="max-w-2xl mx-auto">
 
       {/* Main Booking Form */}
-      <Card className="overflow-hidden bg-white/95 backdrop-blur-sm border-0 shadow-sport">
+      <Card className="card-enterprise overflow-hidden animate-scale-in">
         <CardContent className="p-0">
           <form
             className="space-y-0"
@@ -420,17 +423,20 @@ export default function BookingForm({ turfName, turfLocation }: BookingFormProps
             }}
           >
             {/* Step 1: Personal Info */}
-            <div className="p-6 border-b border-border/50">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white text-sm font-bold">
+            <div className="card-section">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="step-indicator">
                   1
                 </div>
-                <h3 className="text-lg font-semibold">Personal Information</h3>
+                <div>
+                  <h3 className="heading-secondary mb-0">Personal Information</h3>
+                  <p className="text-subtle text-sm">Tell us who you are</p>
+                </div>
               </div>
 
               <div className="space-y-4">
-                <div className="animate-fade-in" style={{ animationDelay: '0.1s', animationFillMode: 'backwards' }}>
-                  <Label htmlFor="customerName" className="text-sm font-medium text-foreground/80 mb-2 block">
+                <div className="form-field animate-fade-in" style={{ animationDelay: '0.1s', animationFillMode: 'backwards' }}>
+                  <Label htmlFor="customerName" className="form-label">
                     Your Name <span className="text-destructive">*</span>
                   </Label>
                   <div className="relative">
@@ -442,8 +448,8 @@ export default function BookingForm({ turfName, turfLocation }: BookingFormProps
                       value={formValues.customerName}
                       onChange={(e) => setFormValues(prev => ({ ...prev, customerName: e.target.value }))}
                       className={cn(
-                        "w-full h-12 pl-4 pr-4 rounded-lg border border-border bg-background/50 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200",
-                        getFieldValidationClass("customerName")
+                        "form-input",
+                        getFieldValidationClass("customerName") && "border-destructive ring-2 ring-destructive/20"
                       )}
                       placeholder="Enter your full name"
                       autoComplete="name"
@@ -454,16 +460,19 @@ export default function BookingForm({ turfName, turfLocation }: BookingFormProps
             </div>
 
             {/* Step 2: Activity Selection */}
-            <div className="p-6 border-b border-border/50">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white text-sm font-bold">
+            <div className="card-section">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="step-indicator">
                   2
                 </div>
-                <h3 className="text-lg font-semibold">Choose Activity</h3>
+                <div>
+                  <h3 className="heading-secondary mb-0">Choose Activity</h3>
+                  <p className="text-subtle text-sm">Select your sport or event type</p>
+                </div>
               </div>
 
               <div className="space-y-4 animate-fade-in" style={{ animationDelay: '0.2s', animationFillMode: 'backwards' }}>
-                <Label htmlFor="sports" className="text-sm font-medium text-foreground/80 mb-2 block">
+                <Label htmlFor="sports" className="form-label">
                   Activity Type <span className="text-destructive">*</span>
                 </Label>
                 <Select
@@ -581,38 +590,38 @@ export default function BookingForm({ turfName, turfLocation }: BookingFormProps
 
               {/* Event Contact Section */}
               {selectedIsEvent && (
-                <div className="mt-6 p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl border border-green-200 animate-fade-in" style={{ animationDelay: '0.3s', animationFillMode: 'backwards' }}>
-                  <div className="flex items-start gap-3">
-                    <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
-                      <Sparkles className="w-5 h-5 text-green-600" />
+                <div className="mt-6 p-6 bg-gradient-to-br from-success-subtle to-accent-subtle rounded-xl border border-success/20 animate-fade-in shadow-sm hover-lift" style={{ animationDelay: '0.3s', animationFillMode: 'backwards' }}>
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 bg-success/10 rounded-full flex items-center justify-center flex-shrink-0 shadow-xs">
+                      <Sparkles className="w-6 h-6 text-success" />
                     </div>
                     <div className="flex-1">
-                      <h4 className="font-semibold text-green-800 mb-1">Premium Event Booking</h4>
-                      <p className="text-sm text-green-700 mb-3">
+                      <h4 className="heading-secondary mb-1 text-success">Premium Event Booking</h4>
+                      <p className="text-sm text-foreground-muted mb-4">
                         Transform our venue for your special occasion. Get personalized assistance for your event.
                       </p>
 
                       <a
                         href={`tel:+91${process.env.NEXT_PUBLIC_PHONE_NUMBER}`}
-                        className="inline-flex items-center gap-2 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg text-sm font-medium transition-all duration-200 transform hover:scale-105"
+                        className="btn-primary inline-flex items-center gap-2 hover-lift focus-ring"
                       >
                         <Phone className="w-4 h-4" />
                         Call +91 {process.env.NEXT_PUBLIC_PHONE_NUMBER}
                         <ArrowRight className="w-4 h-4" />
                       </a>
 
-                      <div className="grid grid-cols-3 gap-2 mt-3 text-xs text-green-700">
-                        <div className="flex items-center gap-1">
-                          <CheckCircle2 className="w-3 h-3" />
-                          <span>Custom Setup</span>
+                      <div className="grid grid-cols-3 gap-3 mt-4 text-xs">
+                        <div className="flex items-center gap-2">
+                          <CheckCircle2 className="w-4 h-4 text-success" />
+                          <span className="font-medium text-foreground-muted">Custom Setup</span>
                         </div>
-                        <div className="flex items-center gap-1">
-                          <CheckCircle2 className="w-3 h-3" />
-                          <span>Flexible Timing</span>
+                        <div className="flex items-center gap-2">
+                          <CheckCircle2 className="w-4 h-4 text-success" />
+                          <span className="font-medium text-foreground-muted">Flexible Timing</span>
                         </div>
-                        <div className="flex items-center gap-1">
-                          <CheckCircle2 className="w-3 h-3" />
-                          <span>Event Planning</span>
+                        <div className="flex items-center gap-2">
+                          <CheckCircle2 className="w-4 h-4 text-success" />
+                          <span className="font-medium text-foreground-muted">Event Planning</span>
                         </div>
                       </div>
                     </div>
@@ -622,8 +631,8 @@ export default function BookingForm({ turfName, turfLocation }: BookingFormProps
 
               {/* People Count for Sports */}
               {formValues.sport && !selectedIsEvent && (
-                <div className="mt-4 animate-fade-in" style={{ animationDelay: '0.4s', animationFillMode: 'backwards' }}>
-                  <Label htmlFor="peopleCount" className="text-sm font-medium text-foreground/80 mb-2 block">
+                <div className="form-field mt-4 animate-fade-in" style={{ animationDelay: '0.4s', animationFillMode: 'backwards' }}>
+                  <Label htmlFor="peopleCount" className="form-label">
                     Number of Players <span className="text-destructive">*</span>
                   </Label>
                   <Select
@@ -664,18 +673,21 @@ export default function BookingForm({ turfName, turfLocation }: BookingFormProps
 
             {/* Step 3: Date & Time (Only for Sports) */}
             {!selectedIsEvent && (
-              <div className="p-6 border-b border-border/50">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white text-sm font-bold">
+              <div className="card-section">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="step-indicator">
                     3
                   </div>
-                  <h3 className="text-lg font-semibold">Date & Time</h3>
+                  <div>
+                    <h3 className="heading-secondary mb-0">Date & Time</h3>
+                    <p className="text-subtle text-sm">Choose when you want to play</p>
+                  </div>
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-4">
                   {/* Date Selection */}
-                  <div className="animate-fade-in" style={{ animationDelay: '0.5s', animationFillMode: 'backwards' }}>
-                    <Label htmlFor="date" className="text-sm font-medium text-foreground/80 mb-2 block">
+                  <div className="form-field animate-fade-in" style={{ animationDelay: '0.5s', animationFillMode: 'backwards' }}>
+                    <Label htmlFor="date" className="form-label">
                       Select Date <span className="text-destructive">*</span>
                     </Label>
                     <Popover>
@@ -718,8 +730,8 @@ export default function BookingForm({ turfName, turfLocation }: BookingFormProps
                   </div>
 
                   {/* Time Selection */}
-                  <div className="animate-fade-in" style={{ animationDelay: '0.6s', animationFillMode: 'backwards' }}>
-                    <Label htmlFor="startTime" className="text-sm font-medium text-foreground/80 mb-2 block">
+                  <div className="form-field animate-fade-in" style={{ animationDelay: '0.6s', animationFillMode: 'backwards' }}>
+                    <Label htmlFor="startTime" className="form-label">
                       Start Time <span className="text-destructive">*</span>
                     </Label>
                     <Popover>
@@ -787,25 +799,25 @@ export default function BookingForm({ turfName, turfLocation }: BookingFormProps
                 </div>
 
                 {/* Duration Selection */}
-                <div className="mt-4 animate-fade-in" style={{ animationDelay: '0.7s', animationFillMode: 'backwards' }}>
-                  <Label htmlFor="duration" className="text-sm font-medium text-foreground/80 mb-2 block">
+                <div className="form-field mt-4 animate-fade-in" style={{ animationDelay: '0.7s', animationFillMode: 'backwards' }}>
+                  <Label htmlFor="duration" className="form-label">
                     Duration <span className="text-destructive">*</span>
                   </Label>
-                  <div className="flex items-center gap-0 bg-background/50 border border-border rounded-lg overflow-hidden">
+                  <div className="flex items-center gap-0 bg-background/50 border border-border rounded-lg overflow-hidden shadow-xs hover:shadow-sm transition-all duration-200">
                     <Button
                       type="button"
                       onClick={decrementDuration}
                       variant="ghost"
                       size="sm"
-                      className="h-12 w-12 rounded-none border-0 hover:bg-muted"
+                      className="h-12 w-12 rounded-none border-0 hover:bg-muted-hover focus-ring disabled:opacity-50"
                       disabled={formValues.duration <= 0.5}
                     >
                       <MinusIcon className="w-4 h-4" />
                     </Button>
-                    <div className="flex-1 h-12 px-4 flex items-center justify-center bg-background border-x border-border">
+                    <div className="flex-1 h-12 px-4 flex items-center justify-center bg-background border-x border-border-subtle">
                       <div className="flex items-center gap-2">
-                        <Timer className="w-4 h-4 text-muted-foreground" />
-                        <span className="font-medium text-sm">
+                        <Timer className="w-4 h-4 text-primary" />
+                        <span className="font-semibold text-sm text-foreground">
                           {formValues.duration} {formValues.duration === 1 ? 'hour' : 'hours'}
                         </span>
                       </div>
@@ -815,7 +827,7 @@ export default function BookingForm({ turfName, turfLocation }: BookingFormProps
                       onClick={incrementDuration}
                       variant="ghost"
                       size="sm"
-                      className="h-12 w-12 rounded-none border-0 hover:bg-muted"
+                      className="h-12 w-12 rounded-none border-0 hover:bg-muted-hover focus-ring disabled:opacity-50"
                       disabled={formValues.duration >= 4}
                     >
                       <PlusIcon className="w-4 h-4" />
@@ -827,32 +839,39 @@ export default function BookingForm({ turfName, turfLocation }: BookingFormProps
 
             {/* Step 4: Summary & Booking (Only for Sports) */}
             {!selectedIsEvent && (
-              <div className="p-6">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white text-sm font-bold">
+              <div className="card-section">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="step-indicator">
                     4
                   </div>
-                  <h3 className="text-lg font-semibold">Review & Book</h3>
+                  <div>
+                    <h3 className="heading-secondary mb-0">Review & Book</h3>
+                    <p className="text-subtle text-sm">Confirm your booking details</p>
+                  </div>
                 </div>
 
                 {/* Availability Status */}
                 <div className="mb-6 animate-fade-in" style={{ animationDelay: '0.8s', animationFillMode: 'backwards' }}>
                   <div className={cn(
-                    "flex items-center gap-3 p-4 rounded-lg border transition-all duration-200",
+                    "flex items-center gap-4 p-4 rounded-lg border shadow-xs hover-lift transition-all duration-200",
                     isAvailable
-                      ? "bg-green-50 border-green-200 text-green-800"
-                      : "bg-red-50 border-red-200 text-red-800"
+                      ? "bg-success-subtle border-success/20 text-success"
+                      : "bg-destructive-subtle border-destructive/20 text-destructive"
                   )}>
                     {isAvailable ? (
-                      <CheckCircle2 className="w-5 h-5 text-green-600" />
+                      <div className="w-10 h-10 bg-success/10 rounded-full flex items-center justify-center">
+                        <CheckCircle2 className="w-5 h-5 text-success" />
+                      </div>
                     ) : (
-                      <AlertCircle className="w-5 h-5 text-red-600" />
+                      <div className="w-10 h-10 bg-destructive/10 rounded-full flex items-center justify-center">
+                        <AlertCircle className="w-5 h-5 text-destructive" />
+                      </div>
                     )}
                     <div>
-                      <div className="font-medium">
+                      <div className="font-semibold text-base">
                         {isAvailable ? "Turf Available" : "Turf Not Available"}
                       </div>
-                      <div className="text-sm opacity-80">
+                      <div className="text-sm text-foreground-muted">
                         {isAvailable
                           ? "Ready to book your slot"
                           : "Please select a different time slot"
@@ -864,8 +883,8 @@ export default function BookingForm({ turfName, turfLocation }: BookingFormProps
 
                 {/* Booking Summary */}
                 {formValues.date && formValues.time && formValues.duration > 0 && (
-                  <div className="mb-6 p-4 bg-gradient-to-r from-primary/5 to-secondary/5 rounded-lg border border-border/50 animate-fade-in" style={{ animationDelay: '0.9s', animationFillMode: 'backwards' }}>
-                    <h4 className="font-semibold mb-3 text-foreground">Booking Summary</h4>
+                  <div className="mb-6 p-6 bg-gradient-card rounded-lg border border-card-border shadow-md hover-lift animate-fade-in" style={{ animationDelay: '0.9s', animationFillMode: 'backwards' }}>
+                    <h4 className="heading-secondary mb-4">Booking Summary</h4>
                     <div className="space-y-2 text-sm">
                       <div className="flex justify-between">
                         <span className="text-muted-foreground">Date:</span>
@@ -903,10 +922,10 @@ export default function BookingForm({ turfName, turfLocation }: BookingFormProps
                     type="submit"
                     size="lg"
                     className={cn(
-                      "w-full h-14 text-base font-semibold rounded-lg transition-all duration-300 transform",
+                      "w-full h-14 text-base font-semibold rounded-lg transition-all duration-300 transform focus-ring",
                       isAvailable
-                        ? "bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white shadow-glow hover:shadow-xl hover:scale-[1.02] active:scale-[0.98]"
-                        : "bg-muted text-muted-foreground cursor-not-allowed"
+                        ? "bg-gradient-to-r from-primary to-secondary hover:from-primary-hover hover:to-secondary-hover text-white shadow-elegant hover:shadow-glow hover:scale-[1.02] active:scale-[0.98]"
+                        : "bg-muted text-muted-foreground cursor-not-allowed opacity-60"
                     )}
                     disabled={!isAvailable || isLoading}
                   >

@@ -4,51 +4,112 @@
 
 @layer base {
   :root {
+    /* Enterprise Background System */
     --background: 0 0% 100%;
+    --background-subtle: 210 20% 98%;
+    --background-muted: 210 40% 96%;
     --foreground: 210 11% 15%;
+    --foreground-muted: 215.4 16.3% 46.9%;
 
+    /* Enterprise Card System */
     --card: 0 0% 100%;
     --card-foreground: 210 11% 15%;
+    --card-elevated: 0 0% 99%;
+    --card-border: 214.3 31.8% 91.4%;
 
+    /* Enterprise Popover System */
     --popover: 0 0% 100%;
     --popover-foreground: 210 11% 15%;
+    --popover-border: 214.3 31.8% 91.4%;
 
-    /* Vibrant turf green primary */
+    /* Professional Primary System - Turf Green */
     --primary: 142 69% 45%;
     --primary-foreground: 0 0% 98%;
-    --primary-glow: 142 69% 58%;
+    --primary-hover: 142 69% 40%;
+    --primary-active: 142 69% 35%;
+    --primary-subtle: 142 69% 95%;
+    --primary-muted: 142 69% 90%;
 
-    /* Energy blue secondary */
+    /* Professional Secondary System - Energy Blue */
     --secondary: 217 89% 61%;
     --secondary-foreground: 0 0% 98%;
+    --secondary-hover: 217 89% 56%;
+    --secondary-active: 217 89% 51%;
+    --secondary-subtle: 217 89% 95%;
+    --secondary-muted: 217 89% 90%;
 
+    /* Enterprise Neutral System */
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
+    --muted-hover: 210 40% 94%;
 
-    /* Sport green accent */
+    /* Professional Accent System */
     --accent: 142 69% 58%;
     --accent-foreground: 0 0% 98%;
+    --accent-hover: 142 69% 53%;
+    --accent-subtle: 142 69% 96%;
 
+    /* Enterprise Status System */
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 98%;
+    --success-subtle: 142 76% 95%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 98%;
+    --warning-subtle: 38 92% 95%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
+    --destructive-subtle: 0 84.2% 95%;
 
+    /* Enterprise Border System */
     --border: 214.3 31.8% 91.4%;
+    --border-subtle: 214.3 31.8% 94%;
+    --border-strong: 214.3 31.8% 85%;
     --input: 214.3 31.8% 91.4%;
     --ring: 142 69% 45%;
 
-    /* Sport-themed gradients */
+    /* Professional Gradient System */
     --gradient-hero: linear-gradient(135deg, hsl(142 69% 45%), hsl(217 89% 61%));
     --gradient-energy: linear-gradient(90deg, hsl(142 69% 45%), hsl(24 94% 58%));
-    --gradient-subtle: linear-gradient(180deg, hsl(0, 0%, 2%), hsl(140, 11%, 5%));
+    --gradient-subtle: linear-gradient(180deg, hsl(210 20% 98%), hsl(210 40% 96%));
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(210 20% 98%));
+    --gradient-glass: linear-gradient(145deg, hsla(0 0% 100% / 0.95), hsla(210 20% 98% / 0.9));
 
-    /* Enhanced shadows */
+    /* Enterprise Shadow System */
+    --shadow-xs: 0 1px 2px 0 hsl(0 0% 0% / 0.05);
+    --shadow-sm: 0 1px 3px 0 hsl(0 0% 0% / 0.1), 0 1px 2px -1px hsl(0 0% 0% / 0.1);
+    --shadow-md: 0 4px 6px -1px hsl(0 0% 0% / 0.1), 0 2px 4px -2px hsl(0 0% 0% / 0.1);
+    --shadow-lg: 0 10px 15px -3px hsl(0 0% 0% / 0.1), 0 4px 6px -4px hsl(0 0% 0% / 0.1);
+    --shadow-xl: 0 20px 25px -5px hsl(0 0% 0% / 0.1), 0 8px 10px -6px hsl(0 0% 0% / 0.1);
+    --shadow-2xl: 0 25px 50px -12px hsl(0 0% 0% / 0.25);
     --shadow-sport: 0 10px 30px -10px hsl(142 69% 45% / 0.3);
     --shadow-glow: 0 0 40px hsl(142 69% 58% / 0.4);
     --shadow-elegant: 0 20px 60px -10px hsl(217 89% 61% / 0.2);
+    --shadow-glass: 0 8px 32px hsl(0 0% 0% / 0.12);
+    --shadow-inset: inset 0 2px 4px 0 hsl(0 0% 0% / 0.05);
 
-    /* Smooth animations */
+    /* Professional Animation System */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --transition-spring: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    --transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Enterprise Typography Scale */
+    --font-size-xs: 0.75rem;
+    --font-size-sm: 0.875rem;
+    --font-size-base: 1rem;
+    --font-size-lg: 1.125rem;
+    --font-size-xl: 1.25rem;
+    --font-size-2xl: 1.5rem;
+    --font-size-3xl: 1.875rem;
+
+    /* Professional Spacing Scale */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 0.75rem;
+    --spacing-lg: 1rem;
+    --spacing-xl: 1.5rem;
+    --spacing-2xl: 2rem;
+    --spacing-3xl: 3rem;
 
     --radius: 0.5rem;
 
@@ -154,22 +215,198 @@
   min-height: calc(100vh - 6rem);
 }
 
+/* Enterprise Animation Keyframes */
 @keyframes fade-in {
   0% {
     opacity: 0;
     transform: translateY(10px);
   }
-
   100% {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
+@keyframes slide-up {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scale-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+/* Enterprise Animation Classes */
 .animate-fade-in {
   opacity: 1;
   animation: fade-in 0.5s ease-out forwards;
   animation-fill-mode: both;
+}
+
+.animate-slide-up {
+  animation: slide-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-fill-mode: both;
+}
+
+.animate-scale-in {
+  animation: scale-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-fill-mode: both;
+}
+
+/* Enterprise Component Styles */
+@layer components {
+  /* Professional Form Elements */
+  .form-field {
+    @apply relative;
+  }
+
+  .form-label {
+    @apply text-sm font-medium text-foreground/80 mb-2 block;
+  }
+
+  .form-input {
+    @apply w-full h-12 px-4 rounded-lg border border-border bg-background/50 text-sm placeholder:text-muted-foreground;
+    @apply focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary;
+    @apply transition-all duration-200;
+    box-shadow: var(--shadow-xs);
+  }
+
+  .form-input:hover {
+    @apply border-border-strong;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .form-input:focus {
+    box-shadow: var(--shadow-sm), 0 0 0 3px hsl(var(--primary) / 0.1);
+  }
+
+  /* Professional Button System */
+  .btn-primary {
+    @apply bg-primary hover:bg-primary/90 text-primary-foreground;
+    @apply font-medium px-6 py-3 rounded-lg;
+    @apply transition-all duration-200;
+    @apply shadow-sm hover:shadow-md;
+    @apply focus:outline-none focus:ring-2 focus:ring-primary/20;
+  }
+
+  .btn-secondary {
+    @apply bg-secondary hover:bg-secondary/90 text-secondary-foreground;
+    @apply font-medium px-6 py-3 rounded-lg;
+    @apply transition-all duration-200;
+    @apply shadow-sm hover:shadow-md;
+    @apply focus:outline-none focus:ring-2 focus:ring-secondary/20;
+  }
+
+  /* Professional Card System */
+  .card-enterprise {
+    @apply bg-card border border-card-border rounded-lg;
+    @apply backdrop-blur-sm;
+    background: var(--gradient-glass);
+    box-shadow: var(--shadow-glass);
+  }
+
+  .card-elevated {
+    @apply bg-card-elevated border border-card-border rounded-lg;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .card-section {
+    @apply p-6 border-b border-border/50;
+  }
+
+  .card-section:last-child {
+    @apply border-b-0;
+  }
+
+  /* Professional Step Indicator */
+  .step-indicator {
+    @apply w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold;
+    @apply bg-primary text-primary-foreground;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .step-indicator.completed {
+    @apply bg-success text-success-foreground;
+  }
+
+  .step-indicator.inactive {
+    @apply bg-muted text-muted-foreground;
+  }
+
+  /* Professional Typography */
+  .heading-primary {
+    @apply text-2xl font-bold text-foreground mb-2;
+  }
+
+  .heading-secondary {
+    @apply text-lg font-semibold text-foreground mb-4;
+  }
+
+  .text-muted {
+    @apply text-muted-foreground;
+  }
+
+  .text-subtle {
+    @apply text-foreground/60;
+  }
+
+  /* Professional Status Indicators */
+  .status-success {
+    @apply bg-success/10 text-success border border-success/20 rounded-lg px-3 py-1 text-sm font-medium;
+  }
+
+  .status-warning {
+    @apply bg-warning/10 text-warning border border-warning/20 rounded-lg px-3 py-1 text-sm font-medium;
+  }
+
+  .status-error {
+    @apply bg-destructive/10 text-destructive border border-destructive/20 rounded-lg px-3 py-1 text-sm font-medium;
+  }
+
+  /* Professional Glass Effect */
+  .glass-effect {
+    backdrop-filter: blur(12px);
+    background: hsla(0, 0%, 100%, 0.95);
+    border: 1px solid hsla(0, 0%, 100%, 0.2);
+    box-shadow: var(--shadow-glass);
+  }
+
+  /* Professional Hover Effects */
+  .hover-lift {
+    @apply transition-all duration-200;
+  }
+
+  .hover-lift:hover {
+    @apply -translate-y-0.5;
+    box-shadow: var(--shadow-lg);
+  }
+
+  /* Professional Focus Ring */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-primary/20 focus:ring-offset-2;
+  }
 }
 
 /* Ensure form elements are clickable and have proper z-index */
