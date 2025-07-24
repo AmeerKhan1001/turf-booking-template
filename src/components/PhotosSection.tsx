@@ -129,7 +129,7 @@ const PhotosSection = () => {
                         </div>
                       </div>
                     </div>
-                    <Button variant="hero" size="sm">
+                    <Button className="bg-white/20 hover:bg-white/30 text-white border border-white/30 backdrop-blur-sm font-medium transition-all duration-200 shadow-lg hover:shadow-xl" size="sm">
                       <Eye className="h-4 w-4 mr-1" />
                       View Details
                     </Button>

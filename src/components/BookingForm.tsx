@@ -408,7 +408,7 @@ export default function BookingForm({ turfName, turfLocation }: BookingFormProps
 
   return (
     <div className="w-full">
-      <Card className="bg-gradient-to-br from-slate-900/95 via-blue-900/90 to-purple-900/95 backdrop-blur-xl border border-white/20 shadow-2xl">
+      <Card className="bg-gradient-to-br from-slate-900/95 via-blue-900/90 to-purple-900/95 backdrop-blur-xl border-2 border-white/30 shadow-2xl hover:shadow-3xl transition-all duration-300 hover:border-white/40">
         <CardHeader className="pb-6">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full flex items-center justify-center">
@@ -755,13 +755,13 @@ export default function BookingForm({ turfName, turfLocation }: BookingFormProps
                             getFieldValidationClass("startTime") && "border-red-400 ring-2 ring-red-400/30"
                           )}
                         >
-                          <Clock className="mr-2 h-4 w-4 text-muted-foreground" />
+                          <Clock className="mr-2 h-4 w-4 text-gray-300" />
                           {formValues.time && formValues.time !== "" ? (
-                            <span className="font-medium">{formValues.time.replace(/(\d+):(\d+)/, (_, h, m) =>
+                            <span className="font-medium text-white">{formValues.time.replace(/(\d+):(\d+)/, (_, h, m) =>
                               `${h % 12 || 12}:${m} ${h >= 12 ? 'PM' : 'AM'}`
                             )}</span>
                           ) : (
-                            <span className="text-muted-foreground">Select time</span>
+                            <span className="text-gray-300">Select time</span>
                           )}
                         </Button>
                       </PopoverTrigger>
@@ -811,7 +811,7 @@ export default function BookingForm({ turfName, turfLocation }: BookingFormProps
 
                 {/* Duration Selection */}
                 <div className="form-field mt-4 animate-fade-in" style={{ animationDelay: '0.7s', animationFillMode: 'backwards' }}>
-                  <Label htmlFor="duration" className="form-label">
+                  <Label htmlFor="duration" className="block text-sm font-medium text-gray-200 mb-2">
                     Duration <span className="text-destructive">*</span>
                   </Label>
                   <div className="flex items-center gap-0 bg-white/15 border border-white/30 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-200 backdrop-blur-sm">
@@ -827,8 +827,8 @@ export default function BookingForm({ turfName, turfLocation }: BookingFormProps
                     </Button>
                     <div className="flex-1 h-12 px-4 flex items-center justify-center bg-white/10 border-x border-white/20">
                       <div className="flex items-center gap-2">
-                        <Timer className="w-4 h-4 text-primary" />
-                        <span className="font-semibold text-sm text-foreground">
+                        <Timer className="w-4 h-4 text-blue-400" />
+                        <span className="font-semibold text-sm text-white">
                           {formValues.duration} {formValues.duration === 1 ? 'hour' : 'hours'}
                         </span>
                       </div>
@@ -864,25 +864,25 @@ export default function BookingForm({ turfName, turfLocation }: BookingFormProps
                 {/* Availability Status */}
                 <div className="mb-6 animate-fade-in" style={{ animationDelay: '0.8s', animationFillMode: 'backwards' }}>
                   <div className={cn(
-                    "flex items-center gap-4 p-4 rounded-lg border shadow-xs hover-lift transition-all duration-200",
+                    "flex items-center gap-4 p-6 rounded-xl border shadow-lg hover:shadow-xl transition-all duration-200 backdrop-blur-sm",
                     isAvailable
-                      ? "bg-success-subtle border-success/20 text-success"
-                      : "bg-destructive-subtle border-destructive/20 text-destructive"
+                      ? "bg-gradient-to-r from-green-500/20 to-emerald-500/20 border-green-400/40 text-green-100"
+                      : "bg-gradient-to-r from-red-500/20 to-orange-500/20 border-red-400/40 text-red-100"
                   )}>
                     {isAvailable ? (
-                      <div className="w-10 h-10 bg-success/10 rounded-full flex items-center justify-center">
-                        <CheckCircle2 className="w-5 h-5 text-success" />
+                      <div className="w-12 h-12 bg-green-500/20 rounded-full flex items-center justify-center shadow-lg">
+                        <CheckCircle2 className="w-6 h-6 text-green-400" />
                       </div>
                     ) : (
-                      <div className="w-10 h-10 bg-destructive/10 rounded-full flex items-center justify-center">
-                        <AlertCircle className="w-5 h-5 text-destructive" />
+                      <div className="w-12 h-12 bg-red-500/20 rounded-full flex items-center justify-center shadow-lg">
+                        <AlertCircle className="w-6 h-6 text-red-400" />
                       </div>
                     )}
                     <div>
-                      <div className="font-semibold text-base">
+                      <div className="font-bold text-lg">
                         {isAvailable ? "Turf Available" : "Turf Not Available"}
                       </div>
-                      <div className="text-sm text-foreground-muted">
+                      <div className="text-sm text-gray-300">
                         {isAvailable
                           ? "Ready to book your slot"
                           : "Please select a different time slot"
@@ -897,28 +897,28 @@ export default function BookingForm({ turfName, turfLocation }: BookingFormProps
                   <div className="mb-6 p-6 bg-gradient-to-br from-white/10 to-white/5 rounded-xl border border-white/20 shadow-lg hover:shadow-xl transition-all duration-200 backdrop-blur-sm animate-fade-in" style={{ animationDelay: '0.9s', animationFillMode: 'backwards' }}>
                     <h4 className="text-lg font-bold text-white mb-4">Booking Summary</h4>
                     <div className="space-y-2 text-sm">
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">Date:</span>
+                      <div className="flex justify-between text-gray-200">
+                        <span className="">Date:</span>
                         <span className="font-medium">{format(formValues.date, "PPP")}</span>
                       </div>
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">Time:</span>
+                      <div className="flex justify-between text-gray-200">
+                        <span className="">Time:</span>
                         <span className="font-medium">
                           {formValues.time.replace(/(\d+):(\d+)/, (_, h, m) =>
                             `${h % 12 || 12}:${m} ${h >= 12 ? 'PM' : 'AM'}`
                           )}
                         </span>
                       </div>
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">Duration:</span>
+                      <div className="flex justify-between text-gray-200">
+                        <span className="">Duration:</span>
                         <span className="font-medium">{formValues.duration} {formValues.duration === 1 ? 'hour' : 'hours'}</span>
                       </div>
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">Players:</span>
+                      <div className="flex justify-between text-gray-200">
+                        <span className="">Players:</span>
                         <span className="font-medium">{formValues.peopleCount} players</span>
                       </div>
                       <div className="border-t border-border/50 pt-2 mt-3">
-                        <div className="flex justify-between items-center">
+                        <div className="flex justify-between text-gray-200 items-center">
                           <span className="font-medium">Estimated Total:</span>
                           <span className="text-lg font-bold text-primary">₹{estimatedPrice}</span>
                         </div>

@@ -12,7 +12,7 @@ export default function Footer() {
   const address = process.env.NEXT_PUBLIC_ADDRESS;
 
   return (
-    <footer className="bg-gradient-to-br from-neutral-900 via-neutral-900 to-neutral-800 text-neutral-300 mt-12 border-t border-neutral-700/50">
+    <footer className="bg-gradient-to-br from-neutral-900 via-neutral-900 to-neutral-800 text-neutral-300 border-t border-neutral-700/50">
       {/* Main Footer Content */}
       <div className="container mx-auto px-4 max-w-6xl py-12">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
