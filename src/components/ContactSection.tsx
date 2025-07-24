@@ -59,14 +59,14 @@ const ContactSection = () => {
   };
 
   return (
-    <section className="py-20 bg-gradient-subtle">
+    <section className="py-20 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
           <Badge variant="outline" className="mb-4 text-primary border-primary">
             Get In Touch
           </Badge>
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
             Ready to Transform
             <span className="block text-primary">Your Sports Business?</span>
           </h2>
@@ -254,7 +254,7 @@ const ContactSection = () => {
 
               <Button 
                 type="submit" 
-                variant="default" 
+                variant="hero" 
                 size="lg" 
                 className="w-full"
                 disabled={isSubmitting}

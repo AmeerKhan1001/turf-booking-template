@@ -40,14 +40,14 @@ const PhotosSection = () => {
   const [selectedFacility, setSelectedFacility] = useState(facilities[0]);
 
   return (
-    <section className="py-20 bg-gradient-subtle">
+    <section className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
           <Badge variant="outline" className="mb-4 text-primary border-primary">
             Our Facilities
           </Badge>
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
             World-Class Sports
             <span className="block text-primary">Infrastructure</span>
           </h2>
@@ -129,7 +129,7 @@ const PhotosSection = () => {
                         </div>
                       </div>
                     </div>
-                    <Button variant="default" size="sm">
+                    <Button variant="hero" size="sm">
                       <Eye className="h-4 w-4 mr-1" />
                       View Details
                     </Button>
