@@ -86,9 +86,9 @@ const ContactSection = () => {
                 <div>
                   <h3 className="text-lg font-semibold mb-2">Visit Our Office</h3>
                   <p className="text-muted-foreground">
-                    123 Sports Complex Avenue<br />
-                    Downtown Business District<br />
-                    City, State 12345
+                  Palakkad - Coimbatore Rd, BK Pudur,<br />
+                    Coimbatore, Kuniyamuthur,<br />
+                    Tamil Nadu 641008
                   </p>
                 </div>
               </div>
@@ -102,8 +102,8 @@ const ContactSection = () => {
                 <div>
                   <h3 className="text-lg font-semibold mb-2">Call Us</h3>
                   <p className="text-muted-foreground">
-                    Business: <span className="font-medium">+1 (555) 123-4567</span><br />
-                    Support: <span className="font-medium">+1 (555) 765-4321</span>
+                    Business: <span className="font-medium">+91 9655781671</span><br />
+                    Support: <span className="font-medium">+91 959728928</span>
                   </p>
                 </div>
               </div>
@@ -132,29 +132,14 @@ const ContactSection = () => {
                 <div>
                   <h3 className="text-lg font-semibold mb-2">Business Hours</h3>
                   <p className="text-muted-foreground">
-                    Monday - Friday: 9:00 AM - 6:00 PM<br />
-                    Saturday: 10:00 AM - 4:00 PM<br />
-                    Sunday: Closed
+                    Monday - Sunday: Open 24 hours <br />
                   </p>
                 </div>
               </div>
             </Card>
 
             {/* Quick Actions */}
-            <div className="grid grid-cols-3 gap-4">
-              <Button variant="outline" size="sm" className="flex flex-col gap-2 h-auto py-4">
-                <Calendar className="h-5 w-5" />
-                <span className="text-xs">Schedule Demo</span>
-              </Button>
-              <Button variant="outline" size="sm" className="flex flex-col gap-2 h-auto py-4">
-                <MessageSquare className="h-5 w-5" />
-                <span className="text-xs">Live Chat</span>
-              </Button>
-              <Button variant="outline" size="sm" className="flex flex-col gap-2 h-auto py-4">
-                <Users className="h-5 w-5" />
-                <span className="text-xs">Join Community</span>
-              </Button>
-            </div>
+           
           </div>
 
           {/* Contact Form */}

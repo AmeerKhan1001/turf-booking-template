@@ -1,14 +1,16 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Calendar, MapPin, Users } from "lucide-react";
+import FacilitiesDialog from "@/components/FacilitiesSection";
+import Link from "next/link";
 
 const HeroSection = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
-        <img 
-          src="/hero-turf.jpg" 
-          alt="Professional turf facility" 
+        <img
+          src="/hero-turf.jpg"
+          alt="Professional turf facility"
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent"></div>
@@ -23,20 +25,24 @@ const HeroSection = () => {
               Turf Experience
             </span>
           </h1>
-          
+
           <p className="text-xl md:text-2xl mb-8 text-gray-200 leading-relaxed">
-            Premium sports facilities with real-time booking, dynamic pricing, and seamless payment processing. 
+            Premium sports facilities with real-time booking, dynamic pricing, and seamless payment processing.
             Your game, your time, your turf.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 mb-12">
-            <Button variant="hero" size="lg" className="text-lg px-8 py-4">
-              Book Now
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-            <Button variant="hero" size="lg" className="text-lg px-8 py-4">
-              View Facilities
-            </Button>
+            <Link href="/book">
+              <Button variant="hero" size="lg" className="text-lg px-8 py-4">
+                Book Now
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </Link>
+            <FacilitiesDialog>
+              <Button variant="hero" size="lg" className="text-lg px-8 py-4">
+                View Facilities
+              </Button>
+            </FacilitiesDialog>
           </div>
 
           {/* Stats */}
@@ -52,7 +58,7 @@ const HeroSection = () => {
               <div className="flex items-center justify-center mb-2">
                 <MapPin className="h-6 w-6 text-primary-glow" />
               </div>
-              <div className="text-2xl font-bold">15+</div>
+              <div className="text-2xl font-bold">2</div>
               <div className="text-sm text-gray-300">Courts Available</div>
             </div>
             <div className="text-center">
