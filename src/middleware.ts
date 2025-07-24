@@ -6,8 +6,18 @@ export async function middleware(request: NextRequest) {
   const token = request.cookies.get('token')?.value;
   const { pathname } = request.nextUrl;
 
+  // Skip middleware for static files, images, and Next.js internals
+  if (
+    pathname.startsWith('/_next/') ||
+    pathname.startsWith('/api/_next/') ||
+    pathname.includes('.') || // This covers images, CSS, JS files, etc.
+    pathname.startsWith('/favicon')
+  ) {
+    return NextResponse.next();
+  }
+
   // Public routes that don't require authentication
-  const publicRoutes = ['/', '/auth'];
+  const publicRoutes = ['/', '/auth', '/book'];
   const isPublicRoute = publicRoutes.includes(pathname);
 
   // Admin routes that require admin role
@@ -53,7 +63,7 @@ export async function middleware(request: NextRequest) {
     const requestHeaders = new Headers(request.headers);
     requestHeaders.set('x-user-id', payload.id.toString());
     requestHeaders.set('x-user-role', payload.role);
-    
+
     return NextResponse.next({
       request: {
         headers: requestHeaders,
@@ -66,6 +76,7 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    '/((?!_next/static|_next/image|favicon.ico).*)',
+    // “everything except Next.js internals”:
+    '/((?!_next/static|_next/image).*)',
   ],
 };

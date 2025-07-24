@@ -287,190 +287,191 @@ export default function Cart({ }: CartProps) {
   }
 
   return (
-    <div className="relative w-full max-w-lg mx-auto">
-      <Card className="card-enterprise overflow-hidden animate-scale-in">
-        <CardContent className="p-0 flex flex-col h-full w-full">
-          {/* Cart Header */}
-          <div className="card-section">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="relative">
-                  <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
-                    <ShoppingCart className="w-5 h-5 text-primary" />
-                  </div>
-                  {cartItems.length > 0 && (
-                    <div className="absolute -top-1 -right-1 bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold shadow-sm">
-                      {cartItems.length}
-                    </div>
-                  )}
-                </div>
-                <div>
-                  <h2 className="heading-secondary mb-0">Your Cart</h2>
-                  <p className="text-subtle text-sm">Review your booking</p>
-                </div>
-              </div>
-              {cartItems.length > 0 && (
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="text-muted-foreground hover:text-destructive flex items-center gap-2 rounded-lg px-3 py-2 transition-all duration-200"
-                  onClick={() => {
-                    setCartItems([]);
-                    localStorage.removeItem("cartItems");
-                    window.dispatchEvent(new Event("cart-updated"));
-                  }}
-                >
-                  <Trash2 className="w-4 h-4" />
-                  Clear
-                </Button>
-              )}
+    <div className="relative w-full">
+      <div className="space-y-6">
+        {cartItems.length === 0 ? (
+          // Empty Cart State - Dark Theme
+          <div className="flex flex-col items-center justify-center py-16 text-center">
+            <div className="w-20 h-20 bg-white/5 backdrop-blur-sm rounded-full flex items-center justify-center mb-6 border border-white/10">
+              <ShoppingCart className="w-10 h-10 text-gray-400" />
             </div>
+            <h3 className="text-xl font-bold text-white mb-2">Your cart is empty</h3>
+            <p className="text-gray-400 text-sm max-w-xs">Add a booking to get started with your sports adventure</p>
           </div>
-
-          {cartItems.length === 0 ? (
-            // Empty Cart State
-            <div className="card-section flex flex-col items-center justify-center py-12 text-center">
-              <div className="w-16 h-16 bg-muted/50 rounded-full flex items-center justify-center mb-4">
-                <ShoppingCart className="w-8 h-8 text-muted-foreground" />
-              </div>
-              <h3 className="text-lg font-semibold text-foreground mb-2">Your cart is empty</h3>
-              <p className="text-muted-foreground text-sm">Add a booking to get started</p>
-            </div>
-          ) : (
-            <>
-              {/* Cart Items */}
-              <div className="card-section space-y-6">
-                {cartItems.map((item, index) => {
-                  const bookingRange = formatBookingRange(item);
-                  return (
-                    <div
-                      key={`${item.date}-${item.startTime}-${index}`}
-                      className="bg-background/50 rounded-lg p-4 border border-border/50 hover-lift animate-fade-in"
-                      style={{ animationDelay: `${index * 0.1}s`, animationFillMode: 'backwards' }}
-                    >
-                      {/* Sport Name */}
-                      <div className="flex items-center justify-between mb-3">
-                        <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
-                            <span className="text-lg">
-                              {item.sport === 'football' ? '⚽' : 
-                               item.sport === 'cricket' ? '🏏' : 
-                               item.sport === 'volleyball' ? '🏐' : '🎯'}
-                            </span>
-                          </div>
-                          <h3 className="text-lg font-bold text-foreground">
+        ) : (
+          <>
+            {/* Cart Items - Dark Theme */}
+            <div className="space-y-4">
+              {cartItems.map((item, index) => {
+                const bookingRange = formatBookingRange(item);
+                return (
+                  <div
+                    key={`${item.date}-${item.startTime}-${index}`}
+                    className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:bg-white/10 transition-all duration-300 animate-fade-in"
+                    style={{ animationDelay: `${index * 0.1}s`, animationFillMode: 'backwards' }}
+                  >
+                    {/* Sport Header */}
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="flex items-center gap-3">
+                        <div className="w-12 h-12 bg-gradient-to-br from-blue-400/20 to-purple-500/20 rounded-xl flex items-center justify-center border border-white/10">
+                          <span className="text-2xl">
+                            {item.sport === 'football' ? '⚽' : 
+                             item.sport === 'cricket' ? '🏏' : 
+                             item.sport === 'volleyball' ? '🏐' : '🎯'}
+                          </span>
+                        </div>
+                        <div>
+                          <h3 className="text-lg font-bold text-white">
                             {formatSportDisplay(item.sport)}
                           </h3>
+                          <p className="text-gray-400 text-sm">{item.courtName}</p>
                         </div>
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          className="h-8 w-8 text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-all duration-200 rounded-lg"
-                          onClick={() => handleRemoveFromCart(index)}
-                          aria-label="Remove from cart"
-                        >
-                          <X className="h-4 w-4" />
-                        </Button>
                       </div>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-10 w-10 text-gray-400 hover:text-red-400 hover:bg-red-400/10 transition-all duration-200 rounded-xl border border-white/10"
+                        onClick={() => handleRemoveFromCart(index)}
+                        aria-label="Remove from cart"
+                      >
+                        <X className="h-5 w-5" />
+                      </Button>
+                    </div>
 
+                    {/* Booking Details */}
+                    <div className="grid grid-cols-2 gap-4 mb-4">
                       {/* Date and Time */}
-                      <div className="flex items-start gap-3 mb-3">
-                        <div className="w-5 h-5 bg-secondary/10 rounded flex items-center justify-center mt-0.5">
-                          <Clock className="w-3 h-3 text-secondary" />
+                      <div className="bg-white/5 rounded-xl p-3 border border-white/5">
+                        <div className="flex items-center gap-2 mb-2">
+                          <div className="w-6 h-6 bg-blue-400/20 rounded-lg flex items-center justify-center">
+                            <Clock className="w-3 h-3 text-blue-400" />
+                          </div>
+                          <span className="text-xs font-medium text-gray-300 uppercase tracking-wide">Schedule</span>
                         </div>
-                        <div className="flex-1">
-                          <div className="font-medium text-foreground text-sm">
-                            {bookingRange.day1.date}
-                          </div>
-                          <div className="text-sm text-muted-foreground">
-                            {bookingRange.isMultiDay && bookingRange.day2 ? (
-                              <>
-                                {bookingRange.day1.time}
-                                <br />
-                                {bookingRange.day2.time} ({bookingRange.day2.date})
-                              </>
-                            ) : (
-                              bookingRange.day1.time
-                            )}
-                          </div>
+                        <div className="text-white font-medium text-sm">
+                          {bookingRange.day1.date}
+                        </div>
+                        <div className="text-gray-400 text-xs">
+                          {bookingRange.isMultiDay && bookingRange.day2 ? (
+                            <>
+                              {bookingRange.day1.time}
+                              <br />
+                              {bookingRange.day2.time} ({bookingRange.day2.date})
+                            </>
+                          ) : (
+                            bookingRange.day1.time
+                          )}
                         </div>
                       </div>
 
-                      {/* People Count and Price */}
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2 text-muted-foreground text-sm">
-                          <div className="w-5 h-5 bg-accent/10 rounded flex items-center justify-center">
-                            <Users className="w-3 h-3 text-accent" />
+                      {/* People Count */}
+                      <div className="bg-white/5 rounded-xl p-3 border border-white/5">
+                        <div className="flex items-center gap-2 mb-2">
+                          <div className="w-6 h-6 bg-green-400/20 rounded-lg flex items-center justify-center">
+                            <Users className="w-3 h-3 text-green-400" />
                           </div>
-                          <span>{item.peopleCount} {item.peopleCount === 1 ? 'person' : 'people'}</span>
+                          <span className="text-xs font-medium text-gray-300 uppercase tracking-wide">Players</span>
                         </div>
-                        <div className="text-right">
-                          <div className="text-lg font-bold text-primary">₹{item.price}</div>
-                          <div className="text-xs text-muted-foreground">{item.duration}h duration</div>
+                        <div className="text-white font-medium text-sm">
+                          {item.peopleCount} {item.peopleCount === 1 ? 'person' : 'people'}
+                        </div>
+                        <div className="text-gray-400 text-xs">
+                          {item.duration}h duration
                         </div>
                       </div>
                     </div>
-                  );
-                })}
-              </div>
 
-              {/* Cart Summary */}
-              <div className="card-section bg-background/30">
-                <div className="space-y-3">
-                  <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">Subtotal</span>
-                    <span className="font-medium text-foreground">₹{subtotal}</span>
-                  </div>
-                  {serviceFee > 0 && (
-                    <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Service Fee</span>
-                      <span className="font-medium text-foreground">₹{serviceFee}</span>
+                    {/* Price */}
+                    <div className="flex justify-between items-center pt-4 border-t border-white/10">
+                      <span className="text-gray-300 text-sm">Booking Price</span>
+                      <div className="text-right">
+                        <div className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500">
+                          ₹{item.price}
+                        </div>
+                      </div>
                     </div>
-                  )}
-                  
-                  <div className="flex justify-between font-bold text-lg pt-3 border-t border-border/50">
-                    <span className="text-foreground">Total</span>
-                    <span className="text-primary">₹{total}</span>
                   </div>
+                );
+              })}
+            </div>
 
-                  {/* Payment Button */}
-                  <div className="pt-4">
-                    <Button
-                      className="btn-primary w-full h-12 text-base font-semibold rounded-xl shadow-md hover:shadow-lg hover-lift focus-ring"
-                      disabled={cartItems.length === 0 || isProcessing}
-                      onClick={handleUPIPayment}
-                    >
-                      {isProcessing ? (
-                        <div className="flex items-center gap-2">
-                          <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                          Processing...
-                        </div>
-                      ) : (
-                        <div className="flex items-center gap-2">
-                          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                          </svg>
-                          Pay ₹{total} with GPay
-                        </div>
-                      )}
-                    </Button>
-                  </div>
+            {/* Cart Summary - Dark Theme */}
+            <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
+              <div className="space-y-4">
+                <div className="flex justify-between text-gray-300">
+                  <span>Subtotal</span>
+                  <span className="font-medium text-white">₹{subtotal}</span>
                 </div>
-              </div>
-            </>
-          )}
-        </CardContent>
-      </Card>
+                {serviceFee > 0 && (
+                  <div className="flex justify-between text-gray-300">
+                    <span>Service Fee</span>
+                    <span className="font-medium text-white">₹{serviceFee}</span>
+                  </div>
+                )}
+                
+                <div className="flex justify-between font-bold text-xl pt-4 border-t border-white/20">
+                  <span className="text-white">Total</span>
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500">₹{total}</span>
+                </div>
 
-      {/* Success Modal */}
+                {/* Payment Button */}
+                <div className="pt-4">
+                  <Button
+                    className="w-full h-14 text-lg font-bold rounded-2xl bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 text-white shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-[1.02]"
+                    disabled={cartItems.length === 0 || isProcessing}
+                    onClick={handleUPIPayment}
+                  >
+                    {isProcessing ? (
+                      <div className="flex items-center gap-3">
+                        <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                        Processing Payment...
+                      </div>
+                    ) : (
+                      <div className="flex items-center gap-3">
+                        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                        Pay ₹{total} with GPay
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                        </svg>
+                      </div>
+                    )}
+                  </Button>
+                </div>
+
+                {/* Clear Cart Button */}
+                {cartItems.length > 0 && (
+                  <Button
+                    variant="ghost"
+                    className="w-full text-gray-400 hover:text-red-400 hover:bg-red-400/10 flex items-center justify-center gap-2 rounded-xl py-3 transition-all duration-200 border border-white/10"
+                    onClick={() => {
+                      setCartItems([]);
+                      localStorage.removeItem("cartItems");
+                      window.dispatchEvent(new Event("cart-updated"));
+                    }}
+                  >
+                    <Trash2 className="w-4 h-4" />
+                    Clear Cart
+                  </Button>
+                )}
+              </div>
+            </div>
+          </>
+        )}
+      </div>
+
+      {/* Success Modal - Dark Theme */}
       {showSuccess && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 animate-fadeIn">
-          <div className="bg-white rounded-2xl shadow-2xl p-8 flex flex-col items-center max-w-xs w-full">
-            <svg className="w-16 h-16 text-green-500 mb-4 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-            </svg>
-            <h3 className="text-xl font-bold mb-2 text-green-700">Reservation Successful!</h3>
-            <p className="text-neutral-700 text-center mb-2">Your booking has been reserved.<br />Please pay at the turf.</p>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm animate-fadeIn">
+          <div className="bg-gradient-to-br from-white/95 to-white/90 backdrop-blur-xl rounded-3xl shadow-2xl p-8 flex flex-col items-center max-w-sm w-full mx-4 border border-white/20">
+            <div className="w-16 h-16 bg-gradient-to-r from-green-400 to-blue-500 rounded-full flex items-center justify-center mb-6">
+              <svg className="w-8 h-8 text-white animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <h3 className="text-2xl font-bold mb-3 text-gray-900">Booking Confirmed!</h3>
+            <p className="text-gray-600 text-center leading-relaxed">Your reservation has been successfully created. Please pay at the turf to complete your booking.</p>
           </div>
         </div>
       )}

@@ -407,13 +407,26 @@ export default function BookingForm({ turfName, turfLocation }: BookingFormProps
   const isAvailable = isTimeSlotAvailable(formValues.date, formValues.time, formValues.duration) && availableCourts.length > 0;
 
   return (
-    <div className="max-w-2xl mx-auto">
-
-      {/* Main Booking Form */}
-      <Card className="card-enterprise overflow-hidden animate-scale-in">
-        <CardContent className="p-0">
+    <div className="w-full">
+      <Card className="bg-gradient-to-br from-slate-900/95 via-blue-900/90 to-purple-900/95 backdrop-blur-xl border border-white/20 shadow-2xl">
+        <CardHeader className="pb-6">
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full flex items-center justify-center">
+              <MapPin className="w-6 h-6 text-white" />
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold text-white">{turfName}</h2>
+              <p className="text-gray-300 flex items-center gap-1">
+                <MapPin className="w-4 h-4" />
+                {turfLocation}
+              </p>
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent>
+          {/* Main Booking Form */}
           <form
-            className="space-y-0"
+            className="space-y-8"
             aria-label="Turf Booking Form"
             onSubmit={e => {
               e.preventDefault();
@@ -421,21 +434,21 @@ export default function BookingForm({ turfName, turfLocation }: BookingFormProps
             }}
           >
             {/* Step 1: Personal Info */}
-            <div className="card-section">
+            <div className="mb-8">
               <div className="flex items-center gap-3 mb-6">
-                <div className="step-indicator">
+                <div className="w-8 h-8 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
                   1
                 </div>
                 <div>
-                  <h3 className="heading-secondary mb-0">Personal Information</h3>
-                  <p className="text-subtle text-sm">Tell us who you are</p>
+                  <h3 className="text-lg font-bold text-white mb-1">Personal Information</h3>
+                  <p className="text-gray-300 text-sm">Tell us who you are</p>
                 </div>
               </div>
 
               <div className="space-y-4">
-                <div className="form-field animate-fade-in" style={{ animationDelay: '0.1s', animationFillMode: 'backwards' }}>
-                  <Label htmlFor="customerName" className="form-label">
-                    Your Name <span className="text-destructive">*</span>
+                <div className="animate-fade-in" style={{ animationDelay: '0.1s', animationFillMode: 'backwards' }}>
+                  <Label htmlFor="customerName" className="block text-sm font-medium text-gray-200 mb-2">
+                    Your Name <span className="text-red-400">*</span>
                   </Label>
                   <div className="relative">
                     <input
@@ -446,8 +459,8 @@ export default function BookingForm({ turfName, turfLocation }: BookingFormProps
                       value={formValues.customerName}
                       onChange={(e) => setFormValues(prev => ({ ...prev, customerName: e.target.value }))}
                       className={cn(
-                        "form-input",
-                        getFieldValidationClass("customerName") && "border-destructive ring-2 ring-destructive/20"
+                        "w-full h-12 px-4 rounded-xl border border-white/30 bg-white/15 backdrop-blur-sm text-white placeholder:text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400/70 focus:border-blue-400/70 transition-all duration-200 shadow-lg hover:bg-white/20",
+                        getFieldValidationClass("customerName") && "border-red-400 ring-2 ring-red-400/30"
                       )}
                       placeholder="Enter your full name"
                       autoComplete="name"
@@ -458,20 +471,20 @@ export default function BookingForm({ turfName, turfLocation }: BookingFormProps
             </div>
 
             {/* Step 2: Activity Selection */}
-            <div className="card-section">
+            <div className="mb-8">
               <div className="flex items-center gap-3 mb-6">
-                <div className="step-indicator">
+                <div className="w-8 h-8 bg-gradient-to-r from-green-400 to-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
                   2
                 </div>
                 <div>
-                  <h3 className="heading-secondary mb-0">Choose Activity</h3>
-                  <p className="text-subtle text-sm">Select your sport or event type</p>
+                  <h3 className="text-lg font-bold text-white mb-1">Choose Activity</h3>
+                  <p className="text-gray-300 text-sm">Select your sport or event type</p>
                 </div>
               </div>
 
               <div className="space-y-4 animate-fade-in" style={{ animationDelay: '0.2s', animationFillMode: 'backwards' }}>
-                <Label htmlFor="sports" className="form-label">
-                  Activity Type <span className="text-destructive">*</span>
+                <Label htmlFor="sports" className="block text-sm font-medium text-gray-200 mb-2">
+                  Activity Type <span className="text-red-400">*</span>
                 </Label>
                 <Select
                   value={formValues.sport}
@@ -484,15 +497,15 @@ export default function BookingForm({ turfName, turfLocation }: BookingFormProps
                     aria-label="Sport"
                     aria-required="true"
                     className={cn(
-                      "h-12 rounded-lg text-sm border border-border bg-background/50 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200",
-                      getFieldValidationClass("sports")
+                      "h-12 rounded-xl border border-white/30 bg-white/15 backdrop-blur-sm text-white hover:bg-white/20 focus:ring-2 focus:ring-blue-400/70 focus:border-blue-400/70 transition-all duration-200 shadow-lg",
+                      getFieldValidationClass("sports") && "border-red-400 ring-2 ring-red-400/30"
                     )}
                   >
                     <div className="flex items-center gap-2">
                       <span className="text-lg">{sportDetails.emoji}</span>
                       <div className="text-left">
-                        <div className="font-medium">{sportDetails.name}</div>
-                        <div className="text-xs text-muted-foreground">{sportDetails.description}</div>
+                        <div className="font-medium text-white">{sportDetails.name}</div>
+                        <div className="text-xs text-gray-400">{sportDetails.description}</div>
                       </div>
                     </div>
                   </SelectTrigger>
@@ -588,20 +601,20 @@ export default function BookingForm({ turfName, turfLocation }: BookingFormProps
 
               {/* Event Contact Section */}
               {selectedIsEvent && (
-                <div className="mt-6 p-6 bg-gradient-to-br from-success-subtle to-accent-subtle rounded-xl border border-success/20 animate-fade-in shadow-sm hover-lift" style={{ animationDelay: '0.3s', animationFillMode: 'backwards' }}>
+                <div className="mt-6 p-6 bg-gradient-to-br from-green-500/20 to-blue-500/20 rounded-xl border border-green-400/30 animate-fade-in shadow-lg hover:shadow-xl transition-all duration-200" style={{ animationDelay: '0.3s', animationFillMode: 'backwards' }}>
                   <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-success/10 rounded-full flex items-center justify-center flex-shrink-0 shadow-xs">
-                      <Sparkles className="w-6 h-6 text-success" />
+                    <div className="w-12 h-12 bg-green-500/20 rounded-full flex items-center justify-center flex-shrink-0 shadow-lg">
+                      <Sparkles className="w-6 h-6 text-green-400" />
                     </div>
                     <div className="flex-1">
-                      <h4 className="heading-secondary mb-1 text-success">Premium Event Booking</h4>
-                      <p className="text-sm text-foreground-muted mb-4">
+                      <h4 className="text-lg font-bold mb-1 text-green-400">Premium Event Booking</h4>
+                      <p className="text-sm text-gray-300 mb-4">
                         Transform our venue for your special occasion. Get personalized assistance for your event.
                       </p>
 
                       <a
                         href={`tel:+91${process.env.NEXT_PUBLIC_PHONE_NUMBER}`}
-                        className="btn-primary inline-flex items-center gap-2 hover-lift focus-ring"
+                        className="inline-flex items-center gap-2 px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg font-medium transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
                       >
                         <Phone className="w-4 h-4" />
                         Call +91 {process.env.NEXT_PUBLIC_PHONE_NUMBER}
@@ -610,16 +623,16 @@ export default function BookingForm({ turfName, turfLocation }: BookingFormProps
 
                       <div className="grid grid-cols-3 gap-3 mt-4 text-xs">
                         <div className="flex items-center gap-2">
-                          <CheckCircle2 className="w-4 h-4 text-success" />
-                          <span className="font-medium text-foreground-muted">Custom Setup</span>
+                          <CheckCircle2 className="w-4 h-4 text-green-400" />
+                          <span className="font-medium text-gray-300">Custom Setup</span>
                         </div>
                         <div className="flex items-center gap-2">
-                          <CheckCircle2 className="w-4 h-4 text-success" />
-                          <span className="font-medium text-foreground-muted">Flexible Timing</span>
+                          <CheckCircle2 className="w-4 h-4 text-green-400" />
+                          <span className="font-medium text-gray-300">Flexible Timing</span>
                         </div>
                         <div className="flex items-center gap-2">
-                          <CheckCircle2 className="w-4 h-4 text-success" />
-                          <span className="font-medium text-foreground-muted">Event Planning</span>
+                          <CheckCircle2 className="w-4 h-4 text-green-400" />
+                          <span className="font-medium text-gray-300">Event Planning</span>
                         </div>
                       </div>
                     </div>
@@ -629,9 +642,9 @@ export default function BookingForm({ turfName, turfLocation }: BookingFormProps
 
               {/* People Count for Sports */}
               {formValues.sport && !selectedIsEvent && (
-                <div className="form-field mt-4 animate-fade-in" style={{ animationDelay: '0.4s', animationFillMode: 'backwards' }}>
-                  <Label htmlFor="peopleCount" className="form-label">
-                    Number of Players <span className="text-destructive">*</span>
+                <div className="mt-4 animate-fade-in" style={{ animationDelay: '0.4s', animationFillMode: 'backwards' }}>
+                  <Label htmlFor="peopleCount" className="block text-sm font-medium text-gray-200 mb-2">
+                    Number of Players <span className="text-red-400">*</span>
                   </Label>
                   <Select
                     value={formValues.peopleCount?.toString()}
@@ -642,12 +655,12 @@ export default function BookingForm({ turfName, turfLocation }: BookingFormProps
                       aria-label="Number of People"
                       aria-required="true"
                       className={cn(
-                        "h-12 rounded-lg text-sm border border-border bg-background/50 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200",
-                        getFieldValidationClass("peopleCount")
+                        "h-12 rounded-xl border border-white/30 bg-white/15 backdrop-blur-sm text-white hover:bg-white/20 focus:ring-2 focus:ring-blue-400/70 focus:border-blue-400/70 transition-all duration-200 shadow-lg",
+                        getFieldValidationClass("peopleCount") && "border-red-400 ring-2 ring-red-400/30"
                       )}
                     >
                       <div className="flex items-center gap-2">
-                        <Users className="w-4 h-4 text-muted-foreground" />
+                        <Users className="w-4 h-4 text-gray-300" />
                         <SelectValue placeholder="Select number of players" />
                       </div>
                     </SelectTrigger>
@@ -671,22 +684,22 @@ export default function BookingForm({ turfName, turfLocation }: BookingFormProps
 
             {/* Step 3: Date & Time (Only for Sports) */}
             {!selectedIsEvent && (
-              <div className="card-section">
+              <div className="mb-8">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="step-indicator">
+                  <div className="w-8 h-8 bg-gradient-to-r from-purple-400 to-pink-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
                     3
                   </div>
                   <div>
-                    <h3 className="heading-secondary mb-0">Date & Time</h3>
-                    <p className="text-subtle text-sm">Choose when you want to play</p>
+                    <h3 className="text-lg font-bold text-white mb-1">Date & Time</h3>
+                    <p className="text-gray-300 text-sm">Choose when you want to play</p>
                   </div>
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-4">
                   {/* Date Selection */}
-                  <div className="form-field animate-fade-in" style={{ animationDelay: '0.5s', animationFillMode: 'backwards' }}>
-                    <Label htmlFor="date" className="form-label">
-                      Select Date <span className="text-destructive">*</span>
+                  <div className="animate-fade-in" style={{ animationDelay: '0.5s', animationFillMode: 'backwards' }}>
+                    <Label htmlFor="date" className="block text-sm font-medium text-gray-200 mb-2">
+                      Select Date <span className="text-red-400">*</span>
                     </Label>
                     <Popover>
                       <PopoverTrigger asChild>
@@ -696,15 +709,15 @@ export default function BookingForm({ turfName, turfLocation }: BookingFormProps
                           aria-required="true"
                           variant="outline"
                           className={cn(
-                            "w-full h-12 justify-start text-left font-normal text-sm border border-border bg-background/50 hover:bg-accent/40 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200",
-                            getFieldValidationClass("date")
+                            "w-full h-12 justify-start text-left font-normal text-sm border border-white/30 bg-white/15 backdrop-blur-sm text-white hover:bg-white/20 focus:ring-2 focus:ring-blue-400/70 focus:border-blue-400/70 transition-all duration-200 rounded-xl shadow-lg",
+                            getFieldValidationClass("date") && "border-red-400 ring-2 ring-red-400/30"
                           )}
                         >
-                          <CalendarIcon className="mr-2 h-4 w-4 text-muted-foreground" />
+                          <CalendarIcon className="mr-2 h-4 w-4 text-gray-300" />
                           {formValues.date ? (
-                            <span className="font-medium">{format(formValues.date, "PPP")}</span>
+                            <span className="font-medium text-white">{format(formValues.date, "PPP")}</span>
                           ) : (
-                            <span className="text-muted-foreground">Pick a date</span>
+                            <span className="text-gray-400">Pick a date</span>
                           )}
                         </Button>
                       </PopoverTrigger>
@@ -729,8 +742,8 @@ export default function BookingForm({ turfName, turfLocation }: BookingFormProps
 
                   {/* Time Selection */}
                   <div className="form-field animate-fade-in" style={{ animationDelay: '0.6s', animationFillMode: 'backwards' }}>
-                    <Label htmlFor="startTime" className="form-label">
-                      Start Time <span className="text-destructive">*</span>
+                    <Label htmlFor="startTime" className="block text-sm font-medium text-gray-200 mb-2">
+                      Start Time <span className="text-red-400">*</span>
                     </Label>
                     <Popover>
                       <PopoverTrigger asChild>
@@ -738,8 +751,8 @@ export default function BookingForm({ turfName, turfLocation }: BookingFormProps
                           id="startTime"
                           variant="outline"
                           className={cn(
-                            "w-full h-12 justify-start text-left font-normal text-sm border border-border bg-background/50 hover:bg-accent/40 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200",
-                            getFieldValidationClass("startTime")
+                            "w-full h-12 justify-start text-left font-normal text-sm border border-white/30 bg-white/15 backdrop-blur-sm text-white hover:bg-white/20 focus:ring-2 focus:ring-blue-400/70 focus:border-blue-400/70 transition-all duration-200 rounded-xl shadow-lg",
+                            getFieldValidationClass("startTime") && "border-red-400 ring-2 ring-red-400/30"
                           )}
                         >
                           <Clock className="mr-2 h-4 w-4 text-muted-foreground" />
@@ -801,7 +814,7 @@ export default function BookingForm({ turfName, turfLocation }: BookingFormProps
                   <Label htmlFor="duration" className="form-label">
                     Duration <span className="text-destructive">*</span>
                   </Label>
-                  <div className="flex items-center gap-0 bg-background/50 border border-border rounded-lg overflow-hidden shadow-xs hover:shadow-sm transition-all duration-200">
+                  <div className="flex items-center gap-0 bg-white/15 border border-white/30 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-200 backdrop-blur-sm">
                     <Button
                       type="button"
                       onClick={decrementDuration}
@@ -812,7 +825,7 @@ export default function BookingForm({ turfName, turfLocation }: BookingFormProps
                     >
                       <MinusIcon className="w-4 h-4" />
                     </Button>
-                    <div className="flex-1 h-12 px-4 flex items-center justify-center bg-background border-x border-border-subtle">
+                    <div className="flex-1 h-12 px-4 flex items-center justify-center bg-white/10 border-x border-white/20">
                       <div className="flex items-center gap-2">
                         <Timer className="w-4 h-4 text-primary" />
                         <span className="font-semibold text-sm text-foreground">
@@ -837,14 +850,14 @@ export default function BookingForm({ turfName, turfLocation }: BookingFormProps
 
             {/* Step 4: Summary & Booking (Only for Sports) */}
             {!selectedIsEvent && (
-              <div className="card-section">
+              <div className="mb-8">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="step-indicator">
+                  <div className="w-8 h-8 bg-gradient-to-r from-pink-400 to-red-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
                     4
                   </div>
                   <div>
-                    <h3 className="heading-secondary mb-0">Review & Book</h3>
-                    <p className="text-subtle text-sm">Confirm your booking details</p>
+                    <h3 className="text-lg font-bold text-white mb-1">Review & Book</h3>
+                    <p className="text-gray-300 text-sm">Confirm your booking details</p>
                   </div>
                 </div>
 
@@ -881,8 +894,8 @@ export default function BookingForm({ turfName, turfLocation }: BookingFormProps
 
                 {/* Booking Summary */}
                 {formValues.date && formValues.time && formValues.duration > 0 && (
-                  <div className="mb-6 p-6 bg-gradient-card rounded-lg border border-card-border shadow-md hover-lift animate-fade-in" style={{ animationDelay: '0.9s', animationFillMode: 'backwards' }}>
-                    <h4 className="heading-secondary mb-4">Booking Summary</h4>
+                  <div className="mb-6 p-6 bg-gradient-to-br from-white/10 to-white/5 rounded-xl border border-white/20 shadow-lg hover:shadow-xl transition-all duration-200 backdrop-blur-sm animate-fade-in" style={{ animationDelay: '0.9s', animationFillMode: 'backwards' }}>
+                    <h4 className="text-lg font-bold text-white mb-4">Booking Summary</h4>
                     <div className="space-y-2 text-sm">
                       <div className="flex justify-between">
                         <span className="text-muted-foreground">Date:</span>
@@ -915,27 +928,30 @@ export default function BookingForm({ turfName, turfLocation }: BookingFormProps
                 )}
 
                 {/* Book Now Button */}
-                <div className="animate-fade-in" style={{ animationDelay: '1s', animationFillMode: 'backwards' }}>
+                <div className="animate-fade-in pt-4" style={{ animationDelay: '1s', animationFillMode: 'backwards' }}>
                   <Button
                     type="submit"
                     size="lg"
                     className={cn(
-                      "w-full h-14 text-base font-semibold rounded-lg transition-all duration-300 transform focus-ring",
+                      "w-full h-16 text-lg font-bold rounded-2xl transition-all duration-300 transform",
                       isAvailable
-                        ? "bg-gradient-to-r from-primary to-secondary hover:from-primary-hover hover:to-secondary-hover text-white shadow-elegant hover:shadow-glow hover:scale-[1.02] active:scale-[0.98]"
-                        : "bg-muted text-muted-foreground cursor-not-allowed opacity-60"
+                        ? "bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 hover:from-green-500 hover:via-blue-600 hover:to-purple-700 text-white shadow-2xl hover:shadow-3xl hover:scale-[1.02] active:scale-[0.98] border border-white/20"
+                        : "bg-white/10 text-gray-400 cursor-not-allowed opacity-60 border border-white/10"
                     )}
                     disabled={!isAvailable || isLoading}
                   >
                     {isLoading ? (
-                      <div className="flex items-center gap-2">
-                        <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                        Processing...
+                      <div className="flex items-center gap-3">
+                        <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                        Processing Your Booking...
                       </div>
                     ) : (
-                      <div className="flex items-center gap-2">
-                        <Sparkles className="w-5 h-5" />
-                        {isAvailable ? `Book Now • ₹${estimatedPrice}` : "Select Available Time"}
+                      <div className="flex items-center gap-3">
+                        <Sparkles className="w-6 h-6" />
+                        {isAvailable ? `Add to Cart • ₹${estimatedPrice}` : "Select Available Time"}
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                        </svg>
                       </div>
                     )}
                   </Button>
