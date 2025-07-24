@@ -1,4 +1,4 @@
-# TurfBooker Template - Next.js Application
+# TurfBooker - Next.js Application
 
 A modern turf booking system built with Next.js 15, featuring real-time availability checking, secure authentication, and comprehensive admin management.
 
