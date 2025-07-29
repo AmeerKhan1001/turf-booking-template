@@ -79,7 +79,7 @@ export default function Navbar({ user }: NavbarProps) {
         <div className="flex items-center">
           <Link href="/" className="flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-xl p-2 hover:bg-primary/5 transition-all duration-200" aria-label="Go to home">
             <div className="w-12 h-12 rounded-lg flex items-center justify-center mr-3">
-              <Image src="/a1sportsarena_logo.jpg" alt="Logo" width={40} height={40} className="w-12 h-12" />
+              <Image src="/yourlogohere.png" alt="Logo" width={40} height={40} className="w-12 h-12" />
             </div>
             <span className="text-xl md:text-2xl font-bold text-primary tracking-tight">{process.env.NEXT_PUBLIC_BUSINESS_NAME || "Turf"}</span>
           </Link>

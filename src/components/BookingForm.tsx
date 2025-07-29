@@ -586,37 +586,40 @@ export default function BookingForm({ turfName, turfLocation }: BookingFormProps
 
               {/* Event Contact Section */}
               {selectedIsEvent && (
-                <div className="mt-6 p-6 bg-gradient-to-br from-green-500/20 to-blue-500/20 rounded-xl border border-green-400/30 animate-fade-in shadow-lg hover:shadow-xl transition-all duration-200" style={{ animationDelay: '0.3s', animationFillMode: 'backwards' }}>
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-green-500/20 rounded-full flex items-center justify-center flex-shrink-0 shadow-lg">
-                      <Sparkles className="w-6 h-6 text-green-400" />
+                <div className="mt-6 p-4 sm:p-6 bg-gradient-to-br from-green-500/20 to-blue-500/20 rounded-xl border border-green-400/30 animate-fade-in shadow-lg hover:shadow-xl transition-all duration-200" style={{ animationDelay: '0.3s', animationFillMode: 'backwards' }}>
+                  <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-4">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-green-500/20 rounded-full flex items-center justify-center flex-shrink-0 shadow-lg">
+                      <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 text-green-400" />
                     </div>
-                    <div className="flex-1">
-                      <h4 className="text-lg font-bold mb-1 text-green-400">Premium Event Booking</h4>
-                      <p className="text-sm text-gray-300 mb-4">
+                    <div className="flex-1 w-full">
+                      <h4 className="text-base sm:text-lg font-bold mb-1 text-green-400">Premium Event Booking</h4>
+                      <p className="text-xs sm:text-sm text-gray-300 mb-3 sm:mb-4">
                         Transform our venue for your special occasion. Get personalized assistance for your event.
                       </p>
 
                       <a
                         href={`tel:+91${process.env.NEXT_PUBLIC_PHONE_NUMBER}`}
-                        className="inline-flex items-center gap-2 px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg font-medium transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
+                        className="inline-flex items-center justify-center gap-1 sm:gap-2 px-2 py-2 sm:px-4 sm:py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg font-medium transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 text-xs sm:text-sm w-full sm:w-auto min-h-[40px]"
                       >
-                        <Phone className="w-4 h-4" />
-                        Call +91 {process.env.NEXT_PUBLIC_PHONE_NUMBER}
-                        <ArrowRight className="w-4 h-4" />
+                        <Phone className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+                        <div className="flex flex-col sm:flex-row sm:items-center sm:gap-1 text-center sm:text-left">
+                          <span className="text-xs sm:text-sm font-semibold">Call Now</span>
+                          <span className="text-xs sm:text-sm opacity-90">+91 {process.env.NEXT_PUBLIC_PHONE_NUMBER}</span>
+                        </div>
+                        <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
                       </a>
 
-                      <div className="grid grid-cols-3 gap-3 mt-4 text-xs">
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 mt-3 sm:mt-4 text-xs">
                         <div className="flex items-center gap-2">
-                          <CheckCircle2 className="w-4 h-4 text-green-400" />
+                          <CheckCircle2 className="w-3 h-3 sm:w-4 sm:h-4 text-green-400 flex-shrink-0" />
                           <span className="font-medium text-gray-300">Custom Setup</span>
                         </div>
                         <div className="flex items-center gap-2">
-                          <CheckCircle2 className="w-4 h-4 text-green-400" />
+                          <CheckCircle2 className="w-3 h-3 sm:w-4 sm:h-4 text-green-400 flex-shrink-0" />
                           <span className="font-medium text-gray-300">Flexible Timing</span>
                         </div>
                         <div className="flex items-center gap-2">
-                          <CheckCircle2 className="w-4 h-4 text-green-400" />
+                          <CheckCircle2 className="w-3 h-3 sm:w-4 sm:h-4 text-green-400 flex-shrink-0" />
                           <span className="font-medium text-gray-300">Event Planning</span>
                         </div>
                       </div>
@@ -926,9 +929,9 @@ export default function BookingForm({ turfName, turfLocation }: BookingFormProps
                     disabled={!isAvailable || isLoading}
                   >
                     {isLoading ? (
-                      <div className="flex items-center gap-3">
-                        <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                        Processing Your Booking...
+                      <div className="flex items-center justify-center gap-2 px-2">
+                        <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin flex-shrink-0"></div>
+                        <span className="text-sm sm:text-base truncate">Processing...</span>
                       </div>
                     ) : (
                       <div className="flex items-center gap-3">

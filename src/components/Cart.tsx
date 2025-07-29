@@ -422,9 +422,9 @@ export default function Cart({ }: CartProps) {
                     onClick={handleUPIPayment}
                   >
                     {isProcessing ? (
-                      <div className="flex items-center gap-3">
-                        <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                        Processing Payment...
+                      <div className="flex items-center justify-center gap-2 px-2">
+                        <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin flex-shrink-0"></div>
+                        <span className="text-sm sm:text-base truncate">Processing...</span>
                       </div>
                     ) : (
                       <div className="flex items-center gap-3">
